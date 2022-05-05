@@ -66,3 +66,10 @@ export interface IClanCurrentRace {
   clanScore: number;
   participants: [IParticipants];
 }
+
+export interface IOptions {
+  clanTag: string;
+  awayMaxDays: string;
+  awayDangerDays: string;
+  warWeekFame: string;
+}

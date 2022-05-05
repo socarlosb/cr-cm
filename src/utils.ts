@@ -1,5 +1,5 @@
 import { differenceInDays, formatDistanceToNowStrict } from "date-fns";
-import { options } from "./options";
+import { serverOptions } from "./options";
 
 import type {
   IClanCurrentRace,
@@ -13,7 +13,7 @@ import type {
 const cleanTag = (clanTag: string) => clanTag.replace("#", "");
 
 export const getClanMembers = async (clanTag: string): Promise<IMember[]> => {
-  const url = `${options.proxyUrl}/clans/%23${cleanTag(clanTag)}/members`;
+  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}/members`;
 
   const response = await fetch(url);
   const { data } = await response.json();
@@ -23,7 +23,9 @@ export const getClanMembers = async (clanTag: string): Promise<IMember[]> => {
 };
 
 export const getClanRaceLog = async (clanTag: string): Promise<IRaceLog[]> => {
-  const url = `${options.proxyUrl}/clans/%23${cleanTag(clanTag)}/riverracelog`;
+  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(
+    clanTag
+  )}/riverracelog`;
 
   const response = await fetch(url);
   const { data } = await response.json();
@@ -35,7 +37,7 @@ export const getClanRaceLog = async (clanTag: string): Promise<IRaceLog[]> => {
 export const getClanCurrentRace = async (
   clanTag: string
 ): Promise<IClanCurrentRace> => {
-  const url = `${options.proxyUrl}/clans/%23${cleanTag(
+  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(
     clanTag
   )}/currentriverrace`;
 
