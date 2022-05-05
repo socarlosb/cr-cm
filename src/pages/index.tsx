@@ -91,39 +91,40 @@ const Home = ({ members }: IProps) => {
                 </td>
                 <td className="text-xs text-gray-800 font-light py-2 whitespace-nowrap">
                   <p>Trophies: {member.trophies}</p>
-                  <p>
-                    Donations: (<span>Given: {member.donations}, </span>
-                    <span>Received: {member.donationsReceived}</span>)
-                  </p>
-                  <p>
-                    Current Race: (
-                    <span
+                  <div className="flex flex-wrap">
+                    <p>Donations: (</p>
+                    <p>Given: {member.donations}</p>
+                    <p> | Received: {member.donationsReceived})</p>
+                  </div>
+                  <div className="flex flex-wrap">
+                    <p>Current Race: (</p>
+                    <p
                       className={`${
                         member.currentRaceFame < options.warWeekFame
                           ? "text-red-400 font-bold"
                           : ""
                       }`}
                     >
-                      Fame: {member.currentRaceFame},{" "}
-                    </span>
-                    <span>Decks: {member.currentRaceDecksUsed}, </span>
-                    <span>Today: {member.currentRaceDecksUsedToday}, </span>
-                    <span>Boats: {member.currentRaceBoatAttacks}</span>)
-                  </p>
-                  <p>
-                    Last Race: (
-                    <span
+                      Fame: {member.currentRaceFame}
+                    </p>
+                    <p> | Decks: {member.currentRaceDecksUsed}</p>
+                    <p> | Today: {member.currentRaceDecksUsedToday}</p>
+                    <p> | Boats: {member.currentRaceBoatAttacks})</p>
+                  </div>
+                  <div className="flex flex-wrap">
+                    <p>Last Race: (</p>
+                    <p
                       className={`${
                         member.lastRaceFame < options.warWeekFame
                           ? "text-red-400 font-bold"
                           : ""
                       }`}
                     >
-                      Fame: {member.lastRaceFame},{" "}
-                    </span>
-                    <span>Decks: {member.lastRaceDecksUsed}, </span>
-                    <span>Boats: {member.lastRaceBoatAttacks}</span>)
-                  </p>
+                      Fame: {member.lastRaceFame}
+                    </p>
+                    <p> | Decks: {member.lastRaceDecksUsed}</p>
+                    <p> | Boats: {member.lastRaceBoatAttacks})</p>
+                  </div>
                 </td>
               </tr>
             ))}
