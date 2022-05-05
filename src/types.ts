@@ -17,8 +17,8 @@ export interface IMember {
 }
 
 export interface IMemberWithRaceFame extends IMember {
-  currentRaceFame: number;
-  lastRaceFame: number;
+  currentRaceFame: string | number;
+  lastRaceFame: string | number;
 }
 
 export interface IParticipants {
