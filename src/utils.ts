@@ -1,4 +1,5 @@
 import { differenceInDays, formatDistanceToNowStrict } from "date-fns";
+import { options } from "./options";
 
 import type {
   IClanCurrentRace,
@@ -12,9 +13,7 @@ import type {
 const cleanTag = (clanTag: string) => clanTag.replace("#", "");
 
 export const getClanMembers = async (clanTag: string): Promise<IMember[]> => {
-  const url = `https://crproxy.herokuapp.com/clans/%23${cleanTag(
-    clanTag
-  )}/members`;
+  const url = `${options.proxyUrl}/clans/%23${cleanTag(clanTag)}/members`;
 
   const response = await fetch(url);
   const { data } = await response.json();
@@ -24,9 +23,7 @@ export const getClanMembers = async (clanTag: string): Promise<IMember[]> => {
 };
 
 export const getClanRaceLog = async (clanTag: string): Promise<IRaceLog[]> => {
-  const url = `https://crproxy.herokuapp.com/clans/%23${cleanTag(
-    clanTag
-  )}/riverracelog`;
+  const url = `${options.proxyUrl}/clans/%23${cleanTag(clanTag)}/riverracelog`;
 
   const response = await fetch(url);
   const { data } = await response.json();
@@ -38,7 +35,7 @@ export const getClanRaceLog = async (clanTag: string): Promise<IRaceLog[]> => {
 export const getClanCurrentRace = async (
   clanTag: string
 ): Promise<IClanCurrentRace> => {
-  const url = `https://crproxy.herokuapp.com/clans/%23${cleanTag(
+  const url = `${options.proxyUrl}/clans/%23${cleanTag(
     clanTag
   )}/currentriverrace`;
 
@@ -57,18 +54,41 @@ const getClanMembersWithRaceFame = (
   return members.map((member) => {
     const { tag } = member;
 
-    const currentRaceFame =
-      currentRaceParticipants.filter(
-        (participant) => participant.tag === tag
-      )[0]?.fame || "-";
-    const lastRaceFame =
-      lastRaceParticipants.filter((participant) => participant.tag === tag)[0]
-        ?.fame || "-";
+    const currentRace = {
+      currentRaceFame:
+        currentRaceParticipants.filter(
+          (participant) => participant.tag === tag
+        )[0]?.fame || "-",
+      currentRaceDecksUsed:
+        currentRaceParticipants.filter(
+          (participant) => participant.tag === tag
+        )[0]?.decksUsed || "-",
+      currentRaceDecksUsedToday:
+        currentRaceParticipants.filter(
+          (participant) => participant.tag === tag
+        )[0]?.decksUsedToday || "-",
+      currentRaceBoatAttacks:
+        currentRaceParticipants.filter(
+          (participant) => participant.tag === tag
+        )[0]?.boatAttacks || "-",
+    };
+
+    const lastRace = {
+      lastRaceFame:
+        lastRaceParticipants.filter((participant) => participant.tag === tag)[0]
+          ?.fame || "-",
+      lastRaceDecksUsed:
+        lastRaceParticipants.filter((participant) => participant.tag === tag)[0]
+          ?.decksUsed || "-",
+      lastRaceBoatAttacks:
+        lastRaceParticipants.filter((participant) => participant.tag === tag)[0]
+          ?.boatAttacks || "-",
+    };
 
     return {
       ...member,
-      currentRaceFame,
-      lastRaceFame,
+      ...currentRace,
+      ...lastRace,
     };
   });
 };

@@ -91,25 +91,38 @@ const Home = ({ members }: IProps) => {
                 </td>
                 <td className="text-xs text-gray-800 font-light py-2 whitespace-nowrap">
                   <p>Trophies: {member.trophies}</p>
-                  <p>Donations Given: {member.donations}</p>
-                  <p>Donations Received: {member.donationsReceived}</p>
-                  <p
-                    className={`${
-                      member.currentRaceFame < options.warWeekFame
-                        ? "text-red-400 font-bold"
-                        : ""
-                    }`}
-                  >
-                    War Fame: {member.currentRaceFame}
+                  <p>
+                    Donations: (<span>Given: {member.donations}, </span>
+                    <span>Received: {member.donationsReceived}</span>)
                   </p>
-                  <p
-                    className={`${
-                      member.lastRaceFame < options.warWeekFame
-                        ? "text-red-400 font-bold"
-                        : ""
-                    }`}
-                  >
-                    Last War Fame: {member.lastRaceFame}
+                  <p>
+                    Current Race: (
+                    <span
+                      className={`${
+                        member.currentRaceFame < options.warWeekFame
+                          ? "text-red-400 font-bold"
+                          : ""
+                      }`}
+                    >
+                      Fame: {member.currentRaceFame},{" "}
+                    </span>
+                    <span>Decks: {member.currentRaceDecksUsed}, </span>
+                    <span>Today: {member.currentRaceDecksUsedToday}, </span>
+                    <span>Boats: {member.currentRaceBoatAttacks}</span>)
+                  </p>
+                  <p>
+                    Last Race: (
+                    <span
+                      className={`${
+                        member.lastRaceFame < options.warWeekFame
+                          ? "text-red-400 font-bold"
+                          : ""
+                      }`}
+                    >
+                      Fame: {member.lastRaceFame},{" "}
+                    </span>
+                    <span>Decks: {member.lastRaceDecksUsed}, </span>
+                    <span>Boats: {member.lastRaceBoatAttacks}</span>)
                   </p>
                 </td>
               </tr>
