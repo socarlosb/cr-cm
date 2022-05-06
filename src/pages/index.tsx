@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { defaultOptions } from "src/options";
 import { IMemberWithRaceFame, IOptions } from "src/types";
 import {
@@ -51,16 +51,17 @@ interface IProps {
 }
 
 const Home = ({ members, clanInfo }: IProps) => {
+  const docRef = useRef<HTMLDivElement>(null);
   const [filter, setFilter] = useState("clanRank");
   const [options, setOptions] = useState<IOptions>(defaultOptions);
-  useState(() => {
-    let local;
-    if (typeof window !== "undefined") {
-      local = JSON.parse(localStorage.getItem("options") || "{}");
-    }
 
-    if (local?.clanTag) {
-      setOptions(local);
+  useEffect(() => {
+    let local;
+    if (docRef) {
+      local = JSON.parse(localStorage.getItem("options") || "");
+      if (local?.clanTag) {
+        setOptions(local);
+      }
     }
   }, []);
 
@@ -69,7 +70,7 @@ const Home = ({ members, clanInfo }: IProps) => {
   };
 
   return (
-    <main className="bg-gray-700">
+    <main ref={docRef} className="bg-gray-700">
       <div className="flex flex-col w-screen h-screen max-w-lg m-auto">
         <div className="sticky top-0 bg-gray-900 text-center text-white p-4 pb-2 rounded-t-md flex justify-between items-center">
           <div>
@@ -84,6 +85,10 @@ const Home = ({ members, clanInfo }: IProps) => {
                 Trophies
               </option>
               <option value="lastSeen">Last seen</option>
+              <option value="currentRaceDecksUsedToday">
+                Decks used today
+              </option>
+              <option value="currentRaceBoatAttacks">Boat attacks</option>
             </select>
           </div>
           <h1 className="text-xl font-medium">{clanInfo.clanName}</h1>

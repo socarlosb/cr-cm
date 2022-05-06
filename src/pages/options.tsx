@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { defaultOptions } from "src/options";
 import { IOptions } from "src/types";
 
@@ -11,11 +11,12 @@ interface IProps {
 
 const Options = ({ clanTag, clanName }: IProps) => {
   const router = useRouter();
-
+  const docRef = useRef<HTMLDivElement>(null);
   const [options, setOptions] = useState<IOptions>(defaultOptions);
-  useState(() => {
+
+  useEffect(() => {
     let local;
-    if (typeof window !== "undefined") {
+    if (docRef) {
       local = JSON.parse(localStorage.getItem("options") || "{}");
     }
 
@@ -32,7 +33,7 @@ const Options = ({ clanTag, clanName }: IProps) => {
   const saveOptions = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (typeof window !== "undefined") {
+    if (docRef) {
       localStorage.setItem("options", JSON.stringify(options));
       document.cookie = `clanTag=${options.clanTag}`;
     }
@@ -40,7 +41,7 @@ const Options = ({ clanTag, clanName }: IProps) => {
   };
 
   return (
-    <main className="bg-gray-700">
+    <main ref={docRef} className="bg-gray-700">
       <div className="flex flex-col w-screen h-screen max-w-lg m-auto">
         <div className="sticky top-0 bg-gray-900 text-center text-white p-4 pb-2 rounded-t-md flex justify-between items-center">
           <Link href="/">
