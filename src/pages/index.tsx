@@ -85,10 +85,6 @@ const Home = ({ members, clanInfo }: IProps) => {
                 Trophies
               </option>
               <option value="lastSeen">Last seen</option>
-              <option value="currentRaceDecksUsedToday">
-                Decks used today
-              </option>
-              <option value="currentRaceBoatAttacks">Boat attacks</option>
             </select>
           </div>
           <h1 className="text-xl font-medium">{clanInfo.clanName}</h1>
