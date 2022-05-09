@@ -51,7 +51,8 @@ export const getClanCurrentRace = async (
 const getClanMembersWithRaceFame = (
   members: IMember[],
   currentRaceParticipants: IParticipants[],
-  lastRaceParticipants: IParticipants[]
+  lastRaceParticipants: IParticipants[],
+  previousRaceParticipants: IParticipants[]
 ) => {
   return members.map((member) => {
     const { tag } = member;
@@ -86,11 +87,26 @@ const getClanMembersWithRaceFame = (
         lastRaceParticipants.filter((participant) => participant.tag === tag)[0]
           ?.boatAttacks || "-",
     };
+    const previousRace = {
+      previousRaceFame:
+        previousRaceParticipants.filter(
+          (participant) => participant.tag === tag
+        )[0]?.fame || "-",
+      previousRaceDecksUsed:
+        previousRaceParticipants.filter(
+          (participant) => participant.tag === tag
+        )[0]?.decksUsed || "-",
+      previousRaceBoatAttacks:
+        previousRaceParticipants.filter(
+          (participant) => participant.tag === tag
+        )[0]?.boatAttacks || "-",
+    };
 
     return {
       ...member,
       ...currentRace,
       ...lastRace,
+      ...previousRace,
     };
   });
 };
@@ -109,15 +125,19 @@ export const getClanMembersRaceFame = async (
   };
 
   const lastRace: IStandings = getClanStatsOfRace(raceLog[0]);
+  const previousRace: IStandings = getClanStatsOfRace(raceLog[1]);
 
   const currentRaceParticipants: IParticipants[] = currentRace?.participants;
   const lastRaceParticipants: IParticipants[] = lastRace?.clan.participants;
+  const previousRaceParticipants: IParticipants[] =
+    previousRace?.clan.participants;
 
   const clanMembersWithRaceFame: IMemberWithRaceFame[] =
     getClanMembersWithRaceFame(
       members,
       currentRaceParticipants,
-      lastRaceParticipants
+      lastRaceParticipants,
+      previousRaceParticipants
     );
 
   return clanMembersWithRaceFame;

@@ -24,6 +24,9 @@ export interface IMemberWithRaceFame extends IMember {
   lastRaceFame: string | number;
   lastRaceDecksUsed: string | number;
   lastRaceBoatAttacks: string | number;
+  previousRaceFame: string | number;
+  previousRaceDecksUsed: string | number;
+  previousRaceBoatAttacks: string | number;
 }
 
 export interface IParticipants {

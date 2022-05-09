@@ -183,6 +183,21 @@ const Home = ({ members, clanInfo }: IProps) => {
                         <p> | Decks: {member.lastRaceDecksUsed}</p>
                         <p> | Boats: {member.lastRaceBoatAttacks})</p>
                       </div>
+                      <div className="flex flex-wrap">
+                        <p>Previous Race: (</p>
+                        <p
+                          className={`${
+                            member.previousRaceFame <
+                            parseInt(options.warWeekFame)
+                              ? "text-red-400 font-bold"
+                              : ""
+                          }`}
+                        >
+                          Fame: {member.previousRaceFame}
+                        </p>
+                        <p> | Decks: {member.previousRaceDecksUsed}</p>
+                        <p> | Boats: {member.previousRaceBoatAttacks})</p>
+                      </div>
                     </td>
                   </tr>
                 ))}
