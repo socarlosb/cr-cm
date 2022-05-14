@@ -2,55 +2,36 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { defaultOptions } from "src/options";
-import { IOptions } from "src/types";
+import { IClanInfo, IMemberWithRaceFame, IOptions } from "src/types";
+import { fetchData } from "src/utils";
 
 interface IProps {
-  clanTag: string;
-  clanName: string;
+  setMembers: (members: IMemberWithRaceFame[]) => void;
+  setClanInfo: (clanInfo: IClanInfo) => void;
 }
 
-const Options = ({ clanTag, clanName }: IProps) => {
-  const router = useRouter();
-  const docRef = useRef<HTMLDivElement>(null);
-  const btnRef = useRef<HTMLButtonElement>(null);
+export const OptionsView = ({ setMembers, setClanInfo }: IProps) => {
   const [options, setOptions] = useState<IOptions>(defaultOptions);
   const [disable, setDisable] = useState<boolean>(false);
-
-  useEffect(() => {
-    let local;
-    if (docRef) {
-      local = JSON.parse(localStorage.getItem("options") || "{}");
-    }
-
-    if (local?.clanTag) {
-      setOptions(local);
-    }
-  }, []);
+  const [message, setMessage] = useState("Save");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setOptions({ ...options, [name]: value });
   };
 
-  const saveOptions = (e: React.FormEvent) => {
+  const saveOptions = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (docRef) {
-      const btnSubmit =
-        docRef.current?.querySelector("button[type=submit]") || null;
-      if (btnSubmit) {
-        btnSubmit.innerHTML = "Saving...";
-        setDisable(true);
-      }
-
-      localStorage.setItem("options", JSON.stringify(options));
-      document.cookie = `clanTag=${options.clanTag}`;
-    }
-    router.push("/");
+    setMessage("Fetching data and saving...");
+    setDisable(true);
+    localStorage.setItem("options", JSON.stringify(options));
+    const { members, clanInfo } = await fetchData(options.clanTag);
+    setMembers(members);
+    setClanInfo(clanInfo);
   };
 
   return (
-    <main ref={docRef} className="bg-gray-700">
+    <main className="bg-gray-700">
       <div className="flex flex-col w-screen h-screen max-w-lg m-auto">
         <div className="sticky top-0 bg-gray-900 text-center text-white p-4 pb-2 rounded-t-md flex justify-between items-center">
           <Link href="/">
@@ -106,25 +87,17 @@ const Options = ({ clanTag, clanName }: IProps) => {
             />
             <button
               disabled={disable}
-              ref={btnRef}
               className="mt-4 text-sm font-semibold ring-2 ring-gray-100 px-4 py-2 rounded-md bg-gray-100 text-gray-800 transition-colors duration-200 hover:bg-gray-800 hover:text-gray-100 hover:ring-gray-800 disabled:bg-slate-400 disabled:text-gray-100"
               type="submit"
             >
-              Save
+              {message}
             </button>
           </form>
         </div>
-        <footer className="sticky top-0 bg-gray-800 text-center text-white rounded-b-md p-4 flex justify-between items-center">
+        <footer className="sticky top-0 bg-gray-800 text-center text-white rounded-b-md p-4 flex flex-start items-center">
           <p className="text-sm font-light">@2022</p>
-          <Link href="/options">
-            <a className="text-sm font-light border-2 border-gray-100 px-2 py-1 rounded-md hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200">
-              Options
-            </a>
-          </Link>
         </footer>
       </div>
     </main>
   );
 };
-
-export default Options;

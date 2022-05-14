@@ -76,3 +76,8 @@ export interface IOptions {
   awayDangerDays: string;
   warWeekFame: string;
 }
+
+export interface IClanInfo {
+  clanTag: string;
+  clanName: string;
+}

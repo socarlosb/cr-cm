@@ -171,3 +171,40 @@ export const dateInDays = (date: string) => {
   const dateReceived = new Date(year, month, day);
   return differenceInDays(new Date(), dateReceived);
 };
+
+export const colorMemberRole = (role: string) => {
+  switch (role.toLowerCase()) {
+    case "leader":
+      return "text-blue-400";
+    case "coleader":
+      return "text-green-400";
+    case "elder":
+      return "text-orange-400";
+    case "member":
+      return "text-gray-400";
+    default:
+      return "text-gray-400";
+  }
+};
+
+export const fetchData = async (clanTag: string) => {
+  const riverRaceLog = await getClanRaceLog(clanTag);
+  const members = await getClanMembers(clanTag);
+  const currentRace = await getClanCurrentRace(clanTag);
+  const membersWithRaceLog = await getClanMembersRaceFame(
+    clanTag,
+    members,
+    riverRaceLog,
+    currentRace
+  );
+  const clanInfo = {
+    clanTag: currentRace?.tag,
+    clanName: currentRace?.name,
+  };
+
+  return { members: membersWithRaceLog, clanInfo };
+};
+
+export const sorter = (filter: string): ((a: any, b: any) => number) => {
+  return (a, b) => (a[filter] > b[filter] ? 1 : -1);
+};
