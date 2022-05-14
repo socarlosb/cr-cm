@@ -31,9 +31,6 @@ const Home = () => {
     if (!parsedLocal) return;
     setOptions(parsedLocal);
     update();
-
-    console.info({ options });
-    console.info("----------------");
   }, []);
 
   const cleanUpOptions = (): void => {
