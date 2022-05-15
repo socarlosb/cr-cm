@@ -1,23 +1,30 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
-import { defaultOptions } from "src/options";
-import { IClanInfo, IMemberWithRaceFame, IOptions } from "src/types";
-import { fetchData } from "src/utils";
-
+import React, { useState } from "react";
+import { IOptions } from "src/types";
+import { parseTag } from "src/utils";
 interface IProps {
-  setMembers: (members: IMemberWithRaceFame[]) => void;
-  setClanInfo: (clanInfo: IClanInfo) => void;
+  currentOptions: IOptions;
+  updateOptions: (options: IOptions) => void;
+  setOpenOptions: (value: boolean) => void;
 }
 
-export const OptionsView = ({ setMembers, setClanInfo }: IProps) => {
-  const [options, setOptions] = useState<IOptions>(defaultOptions);
+export const OptionsView = ({
+  updateOptions,
+  setOpenOptions,
+  currentOptions,
+}: IProps) => {
+  const [options, setOptions] = useState<IOptions>(currentOptions);
   const [disable, setDisable] = useState<boolean>(false);
   const [message, setMessage] = useState("Save");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setOptions({ ...options, [name]: value });
+    if (name === "clanTag") {
+      console.info({ test: parseTag(value) });
+      console.info("----------------");
+      setOptions({ ...options, [name]: parseTag(value) });
+    } else {
+      setOptions({ ...options, [name]: value });
+    }
   };
 
   const saveOptions = async (e: React.FormEvent) => {
@@ -25,20 +32,14 @@ export const OptionsView = ({ setMembers, setClanInfo }: IProps) => {
     setMessage("Fetching data and saving...");
     setDisable(true);
     localStorage.setItem("options", JSON.stringify(options));
-    const { members, clanInfo } = await fetchData(options.clanTag);
-    setMembers(members);
-    setClanInfo(clanInfo);
+    updateOptions(options);
+    setOpenOptions(false);
   };
 
   return (
     <main className="bg-gray-700">
       <div className="flex flex-col w-screen h-screen max-w-lg m-auto">
         <div className="sticky top-0 bg-gray-900 text-center text-white p-4 pb-2 rounded-t-md flex justify-between items-center">
-          <Link href="/">
-            <a className="text-sm font-light border-2 border-gray-100 px-2 py-1 rounded-md hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200">
-              Go Back
-            </a>
-          </Link>
           <h1 className="text-xl font-medium">Options</h1>
         </div>
         <div className="h-full">

@@ -12,6 +12,10 @@ import type {
 
 const cleanTag = (clanTag: string) => clanTag.replace("#", "");
 
+export const parseTag = (clanTag: string) => {
+  return clanTag.startsWith("#") ? clanTag : `#${clanTag}`;
+};
+
 export const getClanMembers = async (clanTag: string): Promise<IMember[]> => {
   const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}/members`;
 
@@ -188,21 +192,24 @@ export const colorMemberRole = (role: string) => {
 };
 
 export const fetchData = async (clanTag: string) => {
-  const riverRaceLog = await getClanRaceLog(clanTag);
-  const members = await getClanMembers(clanTag);
-  const currentRace = await getClanCurrentRace(clanTag);
-  const membersWithRaceLog = await getClanMembersRaceFame(
-    clanTag,
-    members,
-    riverRaceLog,
-    currentRace
-  );
-  const clanInfo = {
-    clanTag: currentRace?.tag,
-    clanName: currentRace?.name,
-  };
-
-  return { members: membersWithRaceLog, clanInfo };
+  try {
+    const riverRaceLog = await getClanRaceLog(clanTag);
+    const members = await getClanMembers(clanTag);
+    const currentRace = await getClanCurrentRace(clanTag);
+    const membersWithRaceLog = await getClanMembersRaceFame(
+      clanTag,
+      members,
+      riverRaceLog,
+      currentRace
+    );
+    const clanInfo = {
+      clanTag: currentRace?.tag,
+      clanName: currentRace?.name,
+    };
+    return { members: membersWithRaceLog, clanInfo };
+  } catch (error) {
+    return { members: null, clanInfo: null };
+  }
 };
 
 export const sorter = (filter: string): ((a: any, b: any) => number) => {
