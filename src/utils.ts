@@ -213,5 +213,19 @@ export const fetchData = async (clanTag: string) => {
 };
 
 export const sorter = (filter: string): ((a: any, b: any) => number) => {
+  if (
+    filter === "currentRaceDecksUsed" ||
+    filter === "currentRaceBoatAttacks"
+  ) {
+    return (a, b) =>
+      a[filter] === "-"
+        ? 1
+        : b[filter] === "-"
+        ? -1
+        : a[filter] > b[filter]
+        ? -1
+        : 1;
+  }
+
   return (a, b) => (a[filter] > b[filter] ? 1 : -1);
 };
