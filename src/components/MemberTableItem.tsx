@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { IMemberWithRaceFame, IOptions } from "src/types";
-import { colorMemberRole, dateInDays, parseDate } from "src/utils";
+import { cleanTag, colorMemberRole, dateInDays, parseDate } from "src/utils";
 
 interface Props {
   member: IMemberWithRaceFame;
@@ -17,6 +18,11 @@ export const MemberTableItem: React.FC<Props> = ({ member, options }) => {
       </td>
       <td className="text-sm text-gray-900 font-light py-4 whitespace-nowrap">
         <h3 className="font-semibold py-0.5">{member.name}</h3>
+        <span className="font-light text-xs italic hover:underline">
+          <Link href={`https://royaleapi.com/player/${cleanTag(member.tag)}`}>
+            <a target="_blank">({cleanTag(member.tag)})</a>
+          </Link>
+        </span>
         <p
           className={`text-xs uppercase py-0.5 ${colorMemberRole(member.role)}`}
         >
@@ -39,7 +45,7 @@ export const MemberTableItem: React.FC<Props> = ({ member, options }) => {
         <div className="flex flex-wrap">
           <p>Donations: (</p>
           <p>Given: {member.donations}</p>
-          <p> | Received: {member.donationsReceived})</p>
+          <p>| Received: {member.donationsReceived})</p>
         </div>
         <div className="flex flex-wrap">
           <p>Current Race: (</p>
@@ -52,9 +58,9 @@ export const MemberTableItem: React.FC<Props> = ({ member, options }) => {
           >
             Fame: {member.currentRaceFame}
           </p>
-          <p> | Decks: {member.currentRaceDecksUsed}</p>
-          <p> | Today: {member.currentRaceDecksUsedToday}</p>
-          <p> | Boats: {member.currentRaceBoatAttacks})</p>
+          <p>| Decks: {member.currentRaceDecksUsed}</p>
+          <p>| Today: {member.currentRaceDecksUsedToday}</p>
+          <p>| Boats: {member.currentRaceBoatAttacks})</p>
         </div>
         <div className="flex flex-wrap">
           <p>Last Race: (</p>
@@ -67,8 +73,8 @@ export const MemberTableItem: React.FC<Props> = ({ member, options }) => {
           >
             Fame: {member.lastRaceFame}
           </p>
-          <p> | Decks: {member.lastRaceDecksUsed}</p>
-          <p> | Boats: {member.lastRaceBoatAttacks})</p>
+          <p>| Decks: {member.lastRaceDecksUsed}</p>
+          <p>| Boats: {member.lastRaceBoatAttacks})</p>
         </div>
         <div className="flex flex-wrap">
           <p>Previous Race: (</p>

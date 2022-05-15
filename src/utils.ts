@@ -10,7 +10,7 @@ import type {
   IStandings,
 } from "./types";
 
-const cleanTag = (clanTag: string) => clanTag.replace("#", "");
+export const cleanTag = (clanTag: string) => clanTag.replace("#", "");
 
 export const parseTag = (clanTag: string) => {
   return clanTag.startsWith("#") ? clanTag : `#${clanTag}`;
