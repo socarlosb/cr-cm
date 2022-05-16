@@ -5,16 +5,18 @@ import { cleanTag, colorMemberRole, dateInDays, parseDate } from "src/utils";
 interface Props {
   member: IMemberWithRaceFame;
   options: IOptions;
+  index: number;
 }
 
-export const MemberTableItem: React.FC<Props> = ({ member, options }) => {
+export const MemberTableItem: React.FC<Props> = ({
+  member,
+  options,
+  index,
+}) => {
   return (
     <tr key={member.tag} className="bg-white border-b hover:bg-gray-100">
       <td className="py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center px-2">
-        <p>{member.clanRank}</p>
-        <span className="text-xs text-gray-500">
-          ({member.previousClanRank})
-        </span>
+        <p>{index + 1}</p>
       </td>
       <td className="text-sm text-gray-900 font-light py-4 whitespace-nowrap">
         <h3 className="font-semibold py-0.5">{member.name}</h3>
@@ -41,7 +43,12 @@ export const MemberTableItem: React.FC<Props> = ({ member, options }) => {
         </p>
       </td>
       <td className="text-xs text-gray-800 font-light py-2 whitespace-nowrap">
-        <p>Trophies: {member.trophies}</p>
+        <p>
+          Trophies: {member.trophies}
+          <span className="text-xs text-gray-500 ml-2 italic">
+            (#{member.clanRank} - #{member.previousClanRank})
+          </span>
+        </p>
         <div className="flex flex-wrap">
           <p>Donations: (</p>
           <p>Given: {member.donations}</p>

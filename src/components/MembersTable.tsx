@@ -34,9 +34,16 @@ export const MembersTable: React.FC<Props> = ({ members, filter, options }) => {
         </tr>
       </thead>
       <tbody>
-        {members.sort(sorter(filter)).map((member: IMemberWithRaceFame) => (
-          <MemberTableItem key={member.tag} member={member} options={options} />
-        ))}
+        {members
+          .sort(sorter(filter))
+          .map((member: IMemberWithRaceFame, i: number) => (
+            <MemberTableItem
+              key={member.tag}
+              member={member}
+              options={options}
+              index={i}
+            />
+          ))}
       </tbody>
     </table>
   );
