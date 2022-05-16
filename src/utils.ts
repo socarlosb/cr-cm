@@ -57,49 +57,60 @@ const getClanMembersWithRaceFame = (
   return members.map((member) => {
     const { tag } = member;
 
+    const calcCurrentRace = currentRaceParticipants.filter(
+      (participant) => participant.tag === tag
+    );
+    const currentRaceFame = calcCurrentRace[0] ? calcCurrentRace[0]?.fame : "-";
+    const currentRaceDecksUsed = calcCurrentRace[0]
+      ? calcCurrentRace[0]?.decksUsed
+      : "-";
+    const currentRaceDecksUsedToday = calcCurrentRace[0]
+      ? calcCurrentRace[0]?.decksUsedToday
+      : "-";
+    const currentRaceBoatAttacks = calcCurrentRace[0]
+      ? calcCurrentRace[0]?.boatAttacks
+      : "-";
+
     const currentRace = {
-      currentRaceFame:
-        currentRaceParticipants.filter(
-          (participant) => participant.tag === tag
-        )[0]?.fame || "-",
-      currentRaceDecksUsed:
-        currentRaceParticipants.filter(
-          (participant) => participant.tag === tag
-        )[0]?.decksUsed || "-",
-      currentRaceDecksUsedToday:
-        currentRaceParticipants.filter(
-          (participant) => participant.tag === tag
-        )[0]?.decksUsedToday || "-",
-      currentRaceBoatAttacks:
-        currentRaceParticipants.filter(
-          (participant) => participant.tag === tag
-        )[0]?.boatAttacks || "-",
+      currentRaceFame,
+      currentRaceDecksUsed,
+      currentRaceDecksUsedToday,
+      currentRaceBoatAttacks,
     };
 
+    const calcLastRace = lastRaceParticipants.filter(
+      (participant) => participant.tag === tag
+    );
+    const lastRaceFame = calcLastRace[0] ? calcLastRace[0]?.fame : "-";
+    const lastRaceDecksUsed = calcLastRace[0]
+      ? calcLastRace[0]?.decksUsed
+      : "-";
+    const lastRaceBoatAttacks = calcLastRace[0]
+      ? calcLastRace[0]?.boatAttacks
+      : "-";
+
     const lastRace = {
-      lastRaceFame:
-        lastRaceParticipants.filter((participant) => participant.tag === tag)[0]
-          ?.fame || "-",
-      lastRaceDecksUsed:
-        lastRaceParticipants.filter((participant) => participant.tag === tag)[0]
-          ?.decksUsed || "-",
-      lastRaceBoatAttacks:
-        lastRaceParticipants.filter((participant) => participant.tag === tag)[0]
-          ?.boatAttacks || "-",
+      lastRaceFame,
+      lastRaceDecksUsed,
+      lastRaceBoatAttacks,
     };
+
+    const calcPreviousRace = previousRaceParticipants.filter(
+      (participant) => participant.tag === tag
+    );
+    const previousRaceFame = calcPreviousRace[0]
+      ? calcPreviousRace[0]?.fame
+      : "-";
+    const previousRaceDecksUsed = calcPreviousRace[0]
+      ? calcPreviousRace[0]?.decksUsed
+      : "-";
+    const previousRaceBoatAttacks = calcPreviousRace[0]
+      ? calcPreviousRace[0]?.boatAttacks
+      : "-";
     const previousRace = {
-      previousRaceFame:
-        previousRaceParticipants.filter(
-          (participant) => participant.tag === tag
-        )[0]?.fame || "-",
-      previousRaceDecksUsed:
-        previousRaceParticipants.filter(
-          (participant) => participant.tag === tag
-        )[0]?.decksUsed || "-",
-      previousRaceBoatAttacks:
-        previousRaceParticipants.filter(
-          (participant) => participant.tag === tag
-        )[0]?.boatAttacks || "-",
+      previousRaceFame,
+      previousRaceDecksUsed,
+      previousRaceBoatAttacks,
     };
 
     return {
