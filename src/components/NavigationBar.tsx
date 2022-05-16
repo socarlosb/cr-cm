@@ -28,6 +28,11 @@ export const NavigationBar = ({ clanInfo, setFilter }: IProps) => {
           <option value="currentRaceBoatAttacks">
             Boat attacks in this race
           </option>
+          <option value="lastRaceFame">Fame won in the last race</option>
+          <option value="lastRaceDecksUsed">Decks used in the last race</option>
+          <option value="lastRaceBoatAttacks">
+            Boat attacks in the last race
+          </option>
         </select>
       </div>
       <h1 className="text-xl font-medium">{clanInfo?.clanName}</h1>

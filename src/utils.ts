@@ -216,7 +216,10 @@ export const sorter = (filter: string): ((a: any, b: any) => number) => {
   if (
     filter === "currentRaceDecksUsed" ||
     filter === "currentRaceBoatAttacks" ||
-    filter === "currentRaceFame"
+    filter === "currentRaceFame" ||
+    filter === "lastRaceFame" ||
+    filter === "lastRaceDecksUsed" ||
+    filter === "lastRaceBoatAttacks"
   ) {
     return (a, b) =>
       a[filter] === "-"
