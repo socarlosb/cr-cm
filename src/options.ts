@@ -10,3 +10,4 @@ export const defaultOptions: IOptions = {
   awayDangerDays: "3",
   warWeekFame: "900",
 };
+export const defaultFilter = "clanRank";

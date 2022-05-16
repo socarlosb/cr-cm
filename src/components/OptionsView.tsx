@@ -19,8 +19,6 @@ export const OptionsView = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "clanTag") {
-      console.info({ test: parseTag(value) });
-      console.info("----------------");
       setOptions({ ...options, [name]: parseTag(value) });
     } else {
       setOptions({ ...options, [name]: value });
@@ -29,7 +27,7 @@ export const OptionsView = ({
 
   const saveOptions = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage("Fetching data and saving...");
+    setMessage("Updating data and saving...");
     setDisable(true);
     localStorage.setItem("options", JSON.stringify(options));
     updateOptions(options);

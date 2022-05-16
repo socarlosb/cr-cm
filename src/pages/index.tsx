@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { IClanInfo, IMemberWithRaceFame, IOptions } from "src/types";
 import { OptionsView } from "src/components/OptionsView";
-import { defaultOptions } from "src/options";
+import { defaultFilter, defaultOptions } from "src/options";
 import { NavigationBar } from "src/components/NavigationBar";
 import { FooterBar } from "src/components/FooterBar";
 import { MembersTable } from "src/components/MembersTable";
 import { fetchData } from "src/utils";
 
 const Home = () => {
-  const [filter, setFilter] = useState("clanRank");
+  const [filter, setFilter] = useState(defaultFilter);
   const [openOptions, setOpenOptions] = useState<boolean>(false);
+  const [oldTag, setOldTag] = useState(defaultOptions.clanTag);
   const [options, setOptions] = useState<IOptions>(defaultOptions);
   const [message, setMessage] = useState("");
   const [members, setMembers] = useState<IMemberWithRaceFame[] | null>(null);
@@ -18,29 +19,43 @@ const Home = () => {
   );
 
   const update = async (tag: string) => {
-    setMessage("Fetching data...");
+    setMessage("Updating data...");
+    setOldTag(options.clanTag);
     const { members, clanInfo } = await fetchData(tag);
     if (!members || !clanInfo) {
       return setMessage(
         "Failed to fetch data, try another tag in the options menu"
       );
     }
-    setMembers(members);
     setClanInformation(clanInfo);
+    setOldTag(clanInformation?.clanTag || defaultOptions.clanTag);
+    setMembers(members);
   };
 
   useEffect(() => {
     const localOptions = localStorage.getItem("options") || "";
-    if (!localOptions) return;
-    const parsedLocal = JSON.parse(localOptions);
-
+    const parsedLocal = localOptions ? JSON.parse(localOptions) : null;
     if (!parsedLocal) {
+      localStorage.setItem("options", JSON.stringify(defaultOptions));
       setOptions(defaultOptions);
-      return;
+      if (members && members?.length > 0 && defaultOptions.clanTag === oldTag)
+        return;
+      update(defaultOptions.clanTag);
+    } else {
+      if (members && members?.length > 0 && parsedLocal.clanTag === oldTag)
+        return;
+      setOptions(parsedLocal);
+      update(parsedLocal.clanTag);
     }
 
-    setOptions(parsedLocal);
-    update(parsedLocal.clanTag);
+    const localFilter = localStorage.getItem("filter") || "";
+    const parsedLocalFilter = localFilter ? JSON.parse(localFilter) : null;
+    if (!parsedLocalFilter) {
+      localStorage.setItem("filter", JSON.stringify(defaultFilter));
+      setFilter(defaultFilter);
+    } else {
+      setFilter(parsedLocalFilter);
+    }
   }, []);
 
   useEffect(() => {
@@ -52,6 +67,11 @@ const Home = () => {
     setOpenOptions(true);
   };
 
+  const handleFilter = (newFilter: string) => {
+    localStorage.setItem("filter", JSON.stringify(newFilter));
+    setFilter(newFilter);
+  };
+
   return openOptions ? (
     <OptionsView
       updateOptions={setOptions}
@@ -61,7 +81,11 @@ const Home = () => {
   ) : (
     <main className="bg-gray-700">
       <div className="flex flex-col w-screen h-screen max-w-4xl m-auto">
-        <NavigationBar clanInfo={clanInformation} setFilter={setFilter} />
+        <NavigationBar
+          clanInfo={clanInformation}
+          setFilter={handleFilter}
+          filter={filter}
+        />
 
         {!members ? (
           <div className="h-full text-center text-white flex justify-center items-center">

@@ -3,9 +3,10 @@ import { IClanInfo } from "src/types";
 interface IProps {
   clanInfo: IClanInfo | null;
   setFilter: (e: string) => void;
+  filter: string;
 }
 
-export const NavigationBar = ({ clanInfo, setFilter }: IProps) => {
+export const NavigationBar = ({ clanInfo, setFilter, filter }: IProps) => {
   const handleOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilter(e.currentTarget.value);
   };
@@ -19,7 +20,7 @@ export const NavigationBar = ({ clanInfo, setFilter }: IProps) => {
           name="orderBy"
           title="Order by"
           onChange={handleOrder}
-          defaultValue={"clanRank"}
+          value={filter}
         >
           <option value="clanRank">Trophies</option>
           <option value="lastSeen">Last seen</option>
