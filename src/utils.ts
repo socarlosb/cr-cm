@@ -17,7 +17,7 @@ export const parseTag = (clanTag: string) => {
 };
 
 export const getClanMembers = async (clanTag: string): Promise<IMember[]> => {
-  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}/members`;
+  const url = `${serverOptions.proxyUrl}/clans/%23${clanTag}/members`;
 
   const response = await fetch(url);
   const { data } = await response.json();
@@ -27,9 +27,7 @@ export const getClanMembers = async (clanTag: string): Promise<IMember[]> => {
 };
 
 export const getClanRaceLog = async (clanTag: string): Promise<IRaceLog[]> => {
-  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(
-    clanTag
-  )}/riverracelog`;
+  const url = `${serverOptions.proxyUrl}/clans/%23${clanTag}/riverracelog`;
 
   const response = await fetch(url);
   const { data } = await response.json();
@@ -41,9 +39,7 @@ export const getClanRaceLog = async (clanTag: string): Promise<IRaceLog[]> => {
 export const getClanCurrentRace = async (
   clanTag: string
 ): Promise<IClanCurrentRace> => {
-  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(
-    clanTag
-  )}/currentriverrace`;
+  const url = `${serverOptions.proxyUrl}/clans/%23${clanTag}/currentriverrace`;
 
   const response = await fetch(url);
   const { data } = await response.json();
@@ -193,11 +189,12 @@ export const colorMemberRole = (role: string) => {
 
 export const fetchData = async (clanTag: string) => {
   try {
-    const riverRaceLog = await getClanRaceLog(clanTag);
-    const members = await getClanMembers(clanTag);
-    const currentRace = await getClanCurrentRace(clanTag);
+    const cleanClanTag = cleanTag(clanTag).toUpperCase();
+    const riverRaceLog = await getClanRaceLog(cleanClanTag);
+    const members = await getClanMembers(cleanClanTag);
+    const currentRace = await getClanCurrentRace(cleanClanTag);
     const membersWithRaceLog = await getClanMembersRaceFame(
-      clanTag,
+      parseTag(cleanClanTag),
       members,
       riverRaceLog,
       currentRace

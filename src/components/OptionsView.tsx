@@ -45,7 +45,7 @@ export const OptionsView = ({
             <label htmlFor="clanTag">Clan tag</label>
             <input
               disabled={disable}
-              className="bg-transparent px-2 py-1 rounded-md mt-2 mb-4 ring-1 ring-gray-100 w-full disabled:bg-slate-400 disabled:text-gray-100"
+              className="bg-transparent px-2 py-1 rounded-md mt-2 mb-4 ring-1 ring-gray-100 w-full disabled:bg-slate-400 disabled:text-gray-100 uppercase"
               type="text"
               name="clanTag"
               title="Clan tag"
