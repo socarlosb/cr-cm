@@ -215,7 +215,8 @@ export const fetchData = async (clanTag: string) => {
 export const sorter = (filter: string): ((a: any, b: any) => number) => {
   if (
     filter === "currentRaceDecksUsed" ||
-    filter === "currentRaceBoatAttacks"
+    filter === "currentRaceBoatAttacks" ||
+    filter === "currentRaceFame"
   ) {
     return (a, b) =>
       a[filter] === "-"
