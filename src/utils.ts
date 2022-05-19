@@ -239,3 +239,16 @@ export const sorter = (filter: string): ((a: any, b: any) => number) => {
 
   return (a, b) => (a[filter] > b[filter] ? 1 : -1);
 };
+
+// function that searches for a member with a max value and returns name and the max value of the clan
+export const getTopValues = (members: any[], filter: string) => {
+  const maxValue = members.reduce((acc, member) => {
+    const value = member[filter];
+    if (value > acc) {
+      return value;
+    }
+    return acc;
+  }, 0);
+
+  return maxValue;
+};

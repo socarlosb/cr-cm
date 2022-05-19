@@ -1,5 +1,6 @@
-import { IMemberWithRaceFame, IOptions } from "src/types";
-import { sorter } from "src/utils";
+import { useEffect, useState } from "react";
+import { IMemberWithRaceFame, IOptions, ITopValues } from "src/types";
+import { getTopValues, sorter } from "src/utils";
 import { MemberTableItem } from "./MemberTableItem";
 
 interface Props {
@@ -9,6 +10,21 @@ interface Props {
 }
 
 export const MembersTable: React.FC<Props> = ({ members, filter, options }) => {
+  const [topValues, setTopValues] = useState<ITopValues>({
+    topBoatAttacks: 0,
+    topDecksUsed: 0,
+    topFame: 0,
+  });
+
+  useEffect(() => {
+    const verifyTopValues: ITopValues = {
+      topFame: getTopValues(members, "currentRaceFame"),
+      topBoatAttacks: getTopValues(members, "currentRaceBoatAttacks"),
+      topDecksUsed: getTopValues(members, "currentRaceDecksUsed"),
+    };
+    setTopValues(verifyTopValues);
+  }, [members]);
+
   return (
     <table className="w-full relative">
       <thead className="">
@@ -41,6 +57,7 @@ export const MembersTable: React.FC<Props> = ({ members, filter, options }) => {
               key={member.tag}
               member={member}
               options={options}
+              topValues={topValues}
               index={i}
             />
           ))}

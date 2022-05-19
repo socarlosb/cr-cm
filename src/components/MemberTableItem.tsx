@@ -1,16 +1,18 @@
 import Link from "next/link";
-import { IMemberWithRaceFame, IOptions } from "src/types";
+import { IMemberWithRaceFame, IOptions, ITopValues } from "src/types";
 import { cleanTag, colorMemberRole, dateInDays, parseDate } from "src/utils";
 
 interface Props {
   member: IMemberWithRaceFame;
   options: IOptions;
+  topValues: ITopValues;
   index: number;
 }
 
 export const MemberTableItem: React.FC<Props> = ({
   member,
   options,
+  topValues,
   index,
 }) => {
   return (
@@ -66,13 +68,31 @@ export const MemberTableItem: React.FC<Props> = ({
               member.currentRaceFame < parseInt(options.warWeekFame)
                 ? "text-red-400 font-bold"
                 : ""
+            } ${
+              member.currentRaceFame === topValues.topFame ? "font-bold" : ""
             }`}
           >
             Fame: {member.currentRaceFame}
           </p>
-          <p>| Decks: {member.currentRaceDecksUsed}</p>
+          <p
+            className={`${
+              member.currentRaceDecksUsed === topValues.topDecksUsed
+                ? "font-bold"
+                : ""
+            }`}
+          >
+            | Decks: {member.currentRaceDecksUsed}
+          </p>
           <p>| Today: {member.currentRaceDecksUsedToday}</p>
-          <p>| Boats: {member.currentRaceBoatAttacks})</p>
+          <p
+            className={`${
+              member.currentRaceBoatAttacks === topValues.topBoatAttacks
+                ? "font-bold"
+                : ""
+            }`}
+          >
+            | Boats: {member.currentRaceBoatAttacks})
+          </p>
         </div>
         <div className="flex flex-wrap">
           <p>Last Race: (</p>

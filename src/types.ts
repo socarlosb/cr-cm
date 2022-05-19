@@ -81,3 +81,9 @@ export interface IClanInfo {
   clanTag: string;
   clanName: string;
 }
+
+export interface ITopValues {
+  topFame: number;
+  topDecksUsed: number;
+  topBoatAttacks: number;
+}
