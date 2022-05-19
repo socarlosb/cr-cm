@@ -63,40 +63,44 @@ const Home = () => {
     update(options.clanTag);
   }, [options]);
 
-  const cleanUpOptions = (): void => {
-    setOpenOptions(true);
-  };
-
   const handleFilter = (newFilter: string) => {
     localStorage.setItem("filter", JSON.stringify(newFilter));
     setFilter(newFilter);
   };
 
-  return openOptions ? (
-    <OptionsView
-      updateOptions={setOptions}
-      currentOptions={options}
-      setOpenOptions={setOpenOptions}
-    />
-  ) : (
+  return (
     <main className="bg-gray-700">
-      <div className="flex flex-col w-screen h-screen max-w-4xl m-auto">
-        <NavigationBar
-          clanInfo={clanInformation}
-          setFilter={handleFilter}
-          filter={filter}
-        />
-
-        {!members ? (
-          <div className="h-full text-center text-white flex justify-center items-center">
-            <p>{message}</p>
-          </div>
+      <div className="flex flex-col w-screen h-screen max-w-4xl m-auto ring-2 ring-gray-900 rounded-t-md rounded-b-md">
+        {openOptions ? (
+          <OptionsView
+            updateOptions={setOptions}
+            currentOptions={options}
+            setOpenOptions={setOpenOptions}
+          />
         ) : (
-          <div className="overflow-auto">
-            <MembersTable members={members} filter={filter} options={options} />
-          </div>
+          <>
+            <NavigationBar
+              clanInfo={clanInformation}
+              setFilter={handleFilter}
+              filter={filter}
+            />
+
+            {!members ? (
+              <div className="h-full text-center text-white flex justify-center items-center">
+                <p>{message}</p>
+              </div>
+            ) : (
+              <div className="overflow-auto">
+                <MembersTable
+                  members={members}
+                  filter={filter}
+                  options={options}
+                />
+              </div>
+            )}
+          </>
         )}
-        <FooterBar cleanUpOptions={cleanUpOptions} />
+        <FooterBar setOpenOptions={setOpenOptions} openOptions={openOptions} />
       </div>
     </main>
   );

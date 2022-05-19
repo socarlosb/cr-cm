@@ -186,13 +186,11 @@ export const dateInDays = (date: string) => {
 export const colorMemberRole = (role: string) => {
   switch (role.toLowerCase()) {
     case "leader":
-      return "text-blue-400";
+      return "text-purple-400";
     case "coleader":
-      return "text-green-400";
+      return "text-blue-400";
     case "elder":
-      return "text-orange-400";
-    case "member":
-      return "text-gray-400";
+      return "text-sky-400";
     default:
       return "text-gray-400";
   }

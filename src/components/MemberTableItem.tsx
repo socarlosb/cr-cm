@@ -14,7 +14,10 @@ export const MemberTableItem: React.FC<Props> = ({
   index,
 }) => {
   return (
-    <tr key={member.tag} className="bg-white border-b hover:bg-gray-100">
+    <tr
+      key={member.tag}
+      className="bg-gray-100 border-b border-b-gray-400 hover:bg-gray-300"
+    >
       <td className="py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center px-2">
         <p>{index + 1}</p>
       </td>
@@ -26,7 +29,9 @@ export const MemberTableItem: React.FC<Props> = ({
           </Link>
         </span>
         <p
-          className={`text-xs uppercase py-0.5 ${colorMemberRole(member.role)}`}
+          className={`text-xs uppercase py-0.5 font-bold ${colorMemberRole(
+            member.role
+          )}`}
         >
           {member.role}
         </p>
