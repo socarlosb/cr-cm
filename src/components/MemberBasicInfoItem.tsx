@@ -13,7 +13,11 @@ export const MemberBasicInfoItem: React.FC<IMemberBasicInfoItem> = ({
 }) => {
   return (
     <>
-      <h3 className="font-semibold py-0.5">{member.name}</h3>
+      <h3 className="font-semibold py-0.5">
+        <Link href={`clashroyale://playerInfo?id=${cleanTag(member.tag)}`}>
+          <a target="_blank">{member.name}</a>
+        </Link>
+      </h3>
       <span className="font-light text-xs underline">
         <Link href={`https://royaleapi.com/player/${cleanTag(member.tag)}`}>
           <a target="_blank">{cleanTag(member.tag)}</a>
