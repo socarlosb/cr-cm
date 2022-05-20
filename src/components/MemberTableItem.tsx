@@ -28,19 +28,19 @@ export const MemberTableItem: React.FC<IMemberTableItemProps> = ({
       </td>
       <td className="text-xs text-gray-800 font-light py-2 whitespace-nowrap">
         <p>
-          Trophies: {member.trophies}
+          Trophies = {member.trophies}
           <span className="text-xs text-gray-500 ml-2 italic">
             (#{member.clanRank} - #{member.previousClanRank})
           </span>
         </p>
         <div className="flex flex-wrap">
-          <p className="mr-1">Donations:</p>
+          <p className="mr-1">Donations =</p>
           <p>Given: {member.donations}</p>
           <p className="mx-1">|</p>
           <p>Received: {member.donationsReceived}</p>
         </div>
         <div className="flex flex-wrap">
-          <p className="mr-1">Current Race:</p>
+          <p className="mr-1">Current =</p>
           <p
             className={`${
               member.currentRaceFame < parseInt(options.warWeekFame)
@@ -70,7 +70,7 @@ export const MemberTableItem: React.FC<IMemberTableItemProps> = ({
           <p>Today: {member.currentRaceDecksUsedToday}</p>
         </div>
         <div className="flex flex-wrap">
-          <p className="mr-1">Last Race:</p>
+          <p className="mr-1">Last =</p>
           <p
             className={`${
               member.lastRaceFame < parseInt(options.warWeekFame)
@@ -98,7 +98,7 @@ export const MemberTableItem: React.FC<IMemberTableItemProps> = ({
           ></StatsItem>
         </div>
         <div className="flex flex-wrap">
-          <p className="mr-1">Previous Race:</p>
+          <p className="mr-1">Previous =</p>
           <p
             className={`${
               member.previousRaceFame < parseInt(options.warWeekFame)
