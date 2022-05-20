@@ -51,7 +51,7 @@ export const OptionsView = ({
             defaultValue={options.clanTag}
             onChange={handleChange}
           />
-          <label htmlFor="minFameWeek">Minimum fame per week</label>
+          <label htmlFor="minFameWeek">Minimum of race medals per week</label>
           <input
             disabled={disable}
             className="bg-transparent px-2 py-1 rounded-md mt-2 mb-4 ring-1 ring-gray-100 w-full disabled:bg-slate-400 disabled:text-gray-100"
