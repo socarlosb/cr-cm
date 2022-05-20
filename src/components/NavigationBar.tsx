@@ -1,12 +1,16 @@
 import { IClanInfo } from "src/types";
 
-interface IProps {
+interface INavigationBarProps {
   clanInfo: IClanInfo | null;
   setFilter: (e: string) => void;
   filter: string;
 }
 
-export const NavigationBar = ({ clanInfo, setFilter, filter }: IProps) => {
+export const NavigationBar = ({
+  clanInfo,
+  setFilter,
+  filter,
+}: INavigationBarProps) => {
   const handleOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilter(e.currentTarget.value);
   };

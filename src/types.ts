@@ -83,7 +83,13 @@ export interface IClanInfo {
 }
 
 export interface ITopValues {
-  topFame: number;
-  topDecksUsed: number;
-  topBoatAttacks: number;
+  currentRaceTopFame: number;
+  currentRaceTopDecksUsed: number;
+  currentRaceTopBoatAttacks: number;
+  lastRaceTopFame: number;
+  lastRaceTopDecksUsed: number;
+  lastRaceTopBoatAttacks: number;
+  previousRaceTopFame: number;
+  previousRaceTopDecksUsed: number;
+  previousRaceTopBoatAttacks: number;
 }

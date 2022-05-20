@@ -11,3 +11,15 @@ export const defaultOptions: IOptions = {
   warWeekFame: "900",
 };
 export const defaultFilter = "clanRank";
+
+export const defaultTopValues = {
+  currentRaceTopFame: 0,
+  currentRaceTopBoatAttacks: 0,
+  currentRaceTopDecksUsed: 0,
+  lastRaceTopFame: 0,
+  lastRaceTopBoatAttacks: 0,
+  lastRaceTopDecksUsed: 0,
+  previousRaceTopFame: 0,
+  previousRaceTopBoatAttacks: 0,
+  previousRaceTopDecksUsed: 0,
+};

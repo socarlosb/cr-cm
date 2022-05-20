@@ -1,9 +1,9 @@
-interface IProps {
+interface IFooterBarProps {
   openOptions: boolean;
   setOpenOptions: (value: boolean) => void;
 }
 
-export const FooterBar = ({ openOptions, setOpenOptions }: IProps) => {
+export const FooterBar = ({ openOptions, setOpenOptions }: IFooterBarProps) => {
   return (
     <footer className="sticky top-0 bg-gray-800 text-center text-white rounded-b-md p-4 flex justify-between items-center">
       <p className="text-sm font-light">@2022</p>

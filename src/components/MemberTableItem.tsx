@@ -1,15 +1,15 @@
-import Link from "next/link";
 import { IMemberWithRaceFame, IOptions, ITopValues } from "src/types";
-import { cleanTag, colorMemberRole, dateInDays, parseDate } from "src/utils";
+import { MemberBasicInfoItem } from "./MemberBasicInfoItem";
+import { StatsItem } from "./StatsItem";
 
-interface Props {
+interface IMemberTableItemProps {
   member: IMemberWithRaceFame;
   options: IOptions;
   topValues: ITopValues;
   index: number;
 }
 
-export const MemberTableItem: React.FC<Props> = ({
+export const MemberTableItem: React.FC<IMemberTableItemProps> = ({
   member,
   options,
   topValues,
@@ -24,30 +24,7 @@ export const MemberTableItem: React.FC<Props> = ({
         <p>{index + 1}</p>
       </td>
       <td className="text-sm text-gray-900 font-light py-4 whitespace-nowrap">
-        <h3 className="font-semibold py-0.5">{member.name}</h3>
-        <span className="font-light text-xs italic hover:underline">
-          <Link href={`https://royaleapi.com/player/${cleanTag(member.tag)}`}>
-            <a target="_blank">({cleanTag(member.tag)})</a>
-          </Link>
-        </span>
-        <p
-          className={`text-xs uppercase py-0.5 font-bold ${colorMemberRole(
-            member.role
-          )}`}
-        >
-          {member.role}
-        </p>
-        <p
-          className={`text-gray-600 text-xs ${
-            dateInDays(member.lastSeen) >= parseInt(options.awayMaxDays)
-              ? "text-red-400 font-bold"
-              : dateInDays(member.lastSeen) >= parseInt(options.awayDangerDays)
-              ? "text-orange-400 font-bold"
-              : ""
-          }`}
-        >
-          Online {parseDate(member.lastSeen)}
-        </p>
+        <MemberBasicInfoItem member={member} options={options} />
       </td>
       <td className="text-xs text-gray-800 font-light py-2 whitespace-nowrap">
         <p>
@@ -57,70 +34,96 @@ export const MemberTableItem: React.FC<Props> = ({
           </span>
         </p>
         <div className="flex flex-wrap">
-          <p>Donations: (</p>
+          <p className="mr-1">Donations:</p>
           <p>Given: {member.donations}</p>
-          <p>| Received: {member.donationsReceived})</p>
+          <p className="mx-1">|</p>
+          <p>Received: {member.donationsReceived}</p>
         </div>
         <div className="flex flex-wrap">
-          <p>Current Race: (</p>
+          <p className="mr-1">Current Race:</p>
           <p
             className={`${
               member.currentRaceFame < parseInt(options.warWeekFame)
                 ? "text-red-400 font-bold"
                 : ""
             } ${
-              member.currentRaceFame === topValues.topFame ? "font-bold" : ""
+              member.currentRaceFame === topValues.currentRaceTopFame
+                ? "text-sky-600 font-bold"
+                : ""
             }`}
           >
             Fame: {member.currentRaceFame}
           </p>
-          <p
-            className={`${
-              member.currentRaceDecksUsed === topValues.topDecksUsed
-                ? "font-bold"
-                : ""
-            }`}
-          >
-            | Decks: {member.currentRaceDecksUsed}
-          </p>
-          <p>| Today: {member.currentRaceDecksUsedToday}</p>
-          <p
-            className={`${
-              member.currentRaceBoatAttacks === topValues.topBoatAttacks
-                ? "font-bold"
-                : ""
-            }`}
-          >
-            | Boats: {member.currentRaceBoatAttacks})
-          </p>
+          <p className="mx-1">|</p>
+          <StatsItem
+            title="Decks"
+            value={member.currentRaceDecksUsed}
+            comparator={topValues.currentRaceTopDecksUsed}
+          ></StatsItem>
+          <p className="mx-1">|</p>
+          <StatsItem
+            title="Boats"
+            value={member.currentRaceBoatAttacks}
+            comparator={topValues.currentRaceTopBoatAttacks}
+          ></StatsItem>
+          <p className="mx-1">|</p>
+          <p>Today: {member.currentRaceDecksUsedToday}</p>
         </div>
         <div className="flex flex-wrap">
-          <p>Last Race: (</p>
+          <p className="mr-1">Last Race:</p>
           <p
             className={`${
               member.lastRaceFame < parseInt(options.warWeekFame)
                 ? "text-red-400 font-bold"
                 : ""
+            } ${
+              member.lastRaceFame === topValues.lastRaceTopFame
+                ? "text-sky-600 font-bold"
+                : ""
             }`}
           >
             Fame: {member.lastRaceFame}
           </p>
-          <p>| Decks: {member.lastRaceDecksUsed}</p>
-          <p>| Boats: {member.lastRaceBoatAttacks})</p>
+          <p className="mx-1">|</p>
+          <StatsItem
+            title="Decks"
+            value={member.lastRaceDecksUsed}
+            comparator={topValues.lastRaceTopDecksUsed}
+          ></StatsItem>
+          <p className="mx-1">|</p>
+          <StatsItem
+            title="Boats"
+            value={member.lastRaceBoatAttacks}
+            comparator={topValues.lastRaceTopBoatAttacks}
+          ></StatsItem>
         </div>
         <div className="flex flex-wrap">
-          <p>Previous Race: (</p>
+          <p className="mr-1">Previous Race:</p>
           <p
             className={`${
               member.previousRaceFame < parseInt(options.warWeekFame)
                 ? "text-red-400 font-bold"
                 : ""
+            } ${
+              member.previousRaceFame === topValues.previousRaceTopFame
+                ? "text-sky-600 font-bold"
+                : ""
             }`}
           >
             Fame: {member.previousRaceFame}
           </p>
-          <p> | Decks: {member.previousRaceDecksUsed}</p>
-          <p> | Boats: {member.previousRaceBoatAttacks})</p>
+          <p className="mx-1">|</p>
+          <StatsItem
+            title="Decks"
+            value={member.previousRaceDecksUsed}
+            comparator={topValues.previousRaceTopDecksUsed}
+          ></StatsItem>
+          <p className="mx-1">|</p>
+          <StatsItem
+            title="Boats"
+            value={member.previousRaceBoatAttacks}
+            comparator={topValues.previousRaceTopBoatAttacks}
+          ></StatsItem>
         </div>
       </td>
     </tr>

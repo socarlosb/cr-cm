@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IOptions } from "src/types";
 import { parseTag } from "src/utils";
-interface IProps {
+interface IOptionsViewProps {
   currentOptions: IOptions;
   updateOptions: (options: IOptions) => void;
   setOpenOptions: (value: boolean) => void;
@@ -11,7 +11,7 @@ export const OptionsView = ({
   updateOptions,
   setOpenOptions,
   currentOptions,
-}: IProps) => {
+}: IOptionsViewProps) => {
   const [options, setOptions] = useState<IOptions>(currentOptions);
   const [disable, setDisable] = useState<boolean>(false);
   const [message, setMessage] = useState("Save");
