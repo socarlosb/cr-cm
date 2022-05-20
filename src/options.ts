@@ -5,7 +5,7 @@ export const serverOptions = {
 };
 
 export const defaultOptions: IOptions = {
-  clanTag: "#YVYYC9QC",
+  clanTag: "",
   awayMaxDays: "7",
   awayDangerDays: "3",
   warWeekFame: "900",

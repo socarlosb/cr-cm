@@ -38,6 +38,7 @@ const Home = () => {
     if (!parsedLocal) {
       localStorage.setItem("options", JSON.stringify(defaultOptions));
       setOptions(defaultOptions);
+      if (defaultOptions.clanTag === "") return setOpenOptions(true);
       if (members && members?.length > 0 && defaultOptions.clanTag === oldTag)
         return;
       update(defaultOptions.clanTag);
