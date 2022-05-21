@@ -17,16 +17,16 @@ export interface IMember {
 }
 
 export interface IMemberWithRaceFame extends IMember {
-  currentRaceFame: string | number;
-  currentRaceDecksUsed: string | number;
-  currentRaceDecksUsedToday: string | number;
-  currentRaceBoatAttacks: string | number;
-  lastRaceFame: string | number;
-  lastRaceDecksUsed: string | number;
-  lastRaceBoatAttacks: string | number;
-  previousRaceFame: string | number;
-  previousRaceDecksUsed: string | number;
-  previousRaceBoatAttacks: string | number;
+  currentRaceFame: number | string;
+  currentRaceDecksUsed: number | string;
+  currentRaceDecksUsedToday: number | string;
+  currentRaceBoatAttacks: number | string;
+  lastRaceFame: number | string;
+  lastRaceDecksUsed: number | string;
+  lastRaceBoatAttacks: number | string;
+  previousRaceFame: number | string;
+  previousRaceDecksUsed: number | string;
+  previousRaceBoatAttacks: number | string;
 }
 
 export interface IParticipants {
@@ -72,9 +72,9 @@ export interface IClanCurrentRace {
 
 export interface IOptions {
   clanTag: string;
-  awayMaxDays: string;
-  awayDangerDays: string;
-  warWeekFame: string;
+  awayMaxDays: number;
+  awayDangerDays: number;
+  warWeekFame: number;
 }
 
 export interface IClanInfo {

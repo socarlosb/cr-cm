@@ -6,9 +6,9 @@ export const serverOptions = {
 
 export const defaultOptions: IOptions = {
   clanTag: "",
-  awayMaxDays: "7",
-  awayDangerDays: "3",
-  warWeekFame: "900",
+  awayMaxDays: 7,
+  awayDangerDays: 3,
+  warWeekFame: 900,
 };
 export const defaultFilter = "clanRank";
 

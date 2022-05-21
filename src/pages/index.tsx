@@ -3,7 +3,6 @@ import { IClanInfo, IMemberWithRaceFame, IOptions } from "src/types";
 import { OptionsForm } from "src/components/OptionsForm";
 import { defaultFilter, defaultOptions } from "src/options";
 import { NavigationBar } from "src/components/NavigationBar";
-import { FooterBar } from "src/components/FooterBar";
 import { MembersTable } from "src/components/MembersTable";
 import {
   fetchClanCurrentRace,
@@ -17,7 +16,6 @@ const Home = () => {
   const [filter, setFilter] = useState(defaultFilter);
   const [openOptions, setOpenOptions] = useState<boolean>(false);
   const [options, setOptions] = useState<IOptions>(defaultOptions);
-  const [message, setMessage] = useState("");
   const [parsedMembers, setParsedMembers] = useState<
     IMemberWithRaceFame[] | null
   >(null);
@@ -83,7 +81,14 @@ const Home = () => {
 
   return (
     <main className="bg-gray-700">
-      <div className="flex flex-col w-screen h-screen max-w-4xl m-auto ring-2 ring-gray-900 rounded-t-md rounded-b-md">
+      <div className="m-auto flex h-screen w-screen max-w-4xl flex-col rounded-t-md rounded-b-md ring-2 ring-gray-900">
+        <NavigationBar
+          clanInfo={clanInformation}
+          setFilter={handleFilter}
+          filter={filter}
+          openOptions={openOptions}
+          setOpenOptions={setOpenOptions}
+        />
         {openOptions ? (
           <OptionsForm
             updateOptions={setOptions}
@@ -92,14 +97,9 @@ const Home = () => {
           />
         ) : (
           <>
-            <NavigationBar
-              clanInfo={clanInformation}
-              setFilter={handleFilter}
-              filter={filter}
-            />
             <div className="overflow-auto">
               {membersError ? (
-                <div className="h-screen text-center text-white flex justify-center items-center">
+                <div className="flex h-screen items-center justify-center text-center text-white">
                   {membersError.message}
                 </div>
               ) : (
@@ -111,7 +111,7 @@ const Home = () => {
                       options={options}
                     />
                   ) : (
-                    <div className="h-screen text-center text-white flex justify-center items-center">
+                    <div className="flex h-screen items-center justify-center text-center text-white">
                       <p>Loading...</p>
                     </div>
                   )}
@@ -120,7 +120,6 @@ const Home = () => {
             </div>
           </>
         )}
-        <FooterBar setOpenOptions={setOpenOptions} openOptions={openOptions} />
       </div>
     </main>
   );

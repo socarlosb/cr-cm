@@ -16,12 +16,27 @@ export const parseTag = (clanTag: string) => {
   return clanTag.startsWith("#") ? clanTag : `#${clanTag}`;
 };
 
+const verifyError = (errorMessage: string) => {
+  let cleanErrorMessage;
+  switch (errorMessage) {
+    case "notFound":
+      cleanErrorMessage =
+        "Clan tag not found! Go to the Options section and try again.";
+      break;
+
+    default:
+      cleanErrorMessage = "Something went wrong!!!";
+      break;
+  }
+  return cleanErrorMessage;
+};
+
 export const fetchClanMembers = async (_url: string, clanTag: string) => {
   if (!clanTag) return;
   const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}${_url}`;
   const response = await fetch(url);
   const { data } = await response.json();
-  if (data?.reason) throw Error(data.reason);
+  if (data?.reason) throw Error(verifyError(data.reason));
   const members: IMember[] = data?.items;
   return members;
 };

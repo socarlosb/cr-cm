@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { defaultTopValues } from "src/options";
 import { IMemberWithRaceFame, IOptions, ITopValues } from "src/types";
 import { getTopValues, sorter } from "src/utils";
-import { MemberTableItem } from "./MemberTableItem";
+import { MemberItem } from "./MemberItem";
 
 interface IMembersTableProps {
   members: IMemberWithRaceFame[];
@@ -10,7 +10,7 @@ interface IMembersTableProps {
   options: IOptions;
 }
 
-export const MembersTable: React.FC<IMembersTableProps> = ({
+export const MembersTable: FC<IMembersTableProps> = ({
   members,
   filter,
   options,
@@ -41,42 +41,18 @@ export const MembersTable: React.FC<IMembersTableProps> = ({
   }, [members]);
 
   return (
-    <table className="w-full relative">
-      <thead>
-        <tr>
-          <th
-            scope="col"
-            className="text-xs font-medium text-gray-100 py-2 text-center sticky top-0 border-b bg-gray-800"
-          >
-            #
-          </th>
-          <th
-            scope="col"
-            className="text-xs font-medium text-gray-100 py-2 text-left sticky top-0 border-b bg-gray-800"
-          >
-            Member
-          </th>
-          <th
-            scope="col"
-            className="text-xs font-medium text-gray-100 py-2 text-left sticky top-0 border-b bg-gray-800"
-          >
-            Stats
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {members
-          .sort(sorter(filter))
-          .map((member: IMemberWithRaceFame, i: number) => (
-            <MemberTableItem
-              key={member.tag}
-              member={member}
-              options={options}
-              topValues={topValues}
-              index={i}
-            />
-          ))}
-      </tbody>
-    </table>
+    <section className="w-full">
+      {members
+        .sort(sorter(filter))
+        .map((member: IMemberWithRaceFame, i: number) => (
+          <MemberItem
+            key={member.tag}
+            member={member}
+            options={options}
+            topValues={topValues}
+            index={i}
+          />
+        ))}
+    </section>
   );
 };
