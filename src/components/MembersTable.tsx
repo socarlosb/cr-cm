@@ -34,6 +34,8 @@ export const MembersTable: React.FC<IMembersTableProps> = ({
         "previousRaceBoatAttacks"
       ),
       previousRaceTopDecksUsed: getTopValues(members, "previousRaceDecksUsed"),
+      donationsGiven: getTopValues(members, "donations"),
+      donationsReceived: getTopValues(members, "donationsReceived"),
     };
     setTopValues(verifyTopValues);
   }, [members]);

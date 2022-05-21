@@ -46,8 +46,6 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.info({ members, riverracelog, currentriverrace });
-    console.info("----------------");
     if (!members) return;
     if (!riverracelog) return;
     if (!currentriverrace) return;

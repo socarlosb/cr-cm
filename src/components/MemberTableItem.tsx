@@ -35,9 +35,17 @@ export const MemberTableItem: React.FC<IMemberTableItemProps> = ({
         </p>
         <div className="flex flex-wrap">
           <p className="mr-1">Donations =</p>
-          <p>Given: {member.donations}</p>
+          <StatsItem
+            title="Given"
+            value={member.donations}
+            comparator={topValues.donationsGiven}
+          />
           <p className="mx-1">|</p>
-          <p>Received: {member.donationsReceived}</p>
+          <StatsItem
+            title="Received"
+            value={member.donationsReceived}
+            comparator={topValues.donationsReceived}
+          />
         </div>
         <div className="flex flex-wrap">
           <p className="mr-1">Current =</p>
@@ -59,13 +67,13 @@ export const MemberTableItem: React.FC<IMemberTableItemProps> = ({
             title="Decks"
             value={member.currentRaceDecksUsed}
             comparator={topValues.currentRaceTopDecksUsed}
-          ></StatsItem>
+          />
           <p className="mx-1">|</p>
           <StatsItem
             title="Boats"
             value={member.currentRaceBoatAttacks}
             comparator={topValues.currentRaceTopBoatAttacks}
-          ></StatsItem>
+          />
           <p className="mx-1">|</p>
           <p>Today: {member.currentRaceDecksUsedToday}</p>
         </div>
@@ -89,13 +97,13 @@ export const MemberTableItem: React.FC<IMemberTableItemProps> = ({
             title="Decks"
             value={member.lastRaceDecksUsed}
             comparator={topValues.lastRaceTopDecksUsed}
-          ></StatsItem>
+          />
           <p className="mx-1">|</p>
           <StatsItem
             title="Boats"
             value={member.lastRaceBoatAttacks}
             comparator={topValues.lastRaceTopBoatAttacks}
-          ></StatsItem>
+          />
         </div>
         <div className="flex flex-wrap">
           <p className="mr-1">Previous =</p>
@@ -117,13 +125,13 @@ export const MemberTableItem: React.FC<IMemberTableItemProps> = ({
             title="Decks"
             value={member.previousRaceDecksUsed}
             comparator={topValues.previousRaceTopDecksUsed}
-          ></StatsItem>
+          />
           <p className="mx-1">|</p>
           <StatsItem
             title="Boats"
             value={member.previousRaceBoatAttacks}
             comparator={topValues.previousRaceTopBoatAttacks}
-          ></StatsItem>
+          />
         </div>
       </td>
     </tr>

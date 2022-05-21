@@ -84,6 +84,8 @@ export interface IClanInfo {
 }
 
 export interface ITopValues {
+  donationsGiven: number;
+  donationsReceived: number;
   currentRaceTopFame: number;
   currentRaceTopDecksUsed: number;
   currentRaceTopBoatAttacks: number;
