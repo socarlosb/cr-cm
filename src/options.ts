@@ -1,4 +1,4 @@
-import { IOptions } from "./types";
+import { IOptions, ITopValues } from "./types";
 
 export const serverOptions = {
   proxyUrl: "https://crproxy.herokuapp.com",
@@ -12,7 +12,7 @@ export const defaultOptions: IOptions = {
 };
 export const defaultFilter = "clanRank";
 
-export const defaultTopValues = {
+export const defaultTopValues: ITopValues = {
   currentRaceTopFame: 0,
   currentRaceTopBoatAttacks: 0,
   currentRaceTopDecksUsed: 0,
@@ -22,4 +22,6 @@ export const defaultTopValues = {
   previousRaceTopFame: 0,
   previousRaceTopBoatAttacks: 0,
   previousRaceTopDecksUsed: 0,
+  donationsGiven: 0,
+  donationsReceived: 0,
 };
