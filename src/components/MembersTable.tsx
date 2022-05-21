@@ -42,23 +42,23 @@ export const MembersTable: React.FC<IMembersTableProps> = ({
 
   return (
     <table className="w-full relative">
-      <thead className="">
+      <thead>
         <tr>
           <th
             scope="col"
-            className="text-xs font-medium text-gray-100 py-4 text-center sticky top-0 border-b bg-gray-800"
+            className="text-xs font-medium text-gray-100 py-2 text-center sticky top-0 border-b bg-gray-800"
           >
             #
           </th>
           <th
             scope="col"
-            className="text-xs font-medium text-gray-100 py-4 text-left sticky top-0 border-b bg-gray-800"
+            className="text-xs font-medium text-gray-100 py-2 text-left sticky top-0 border-b bg-gray-800"
           >
             Member
           </th>
           <th
             scope="col"
-            className="text-xs font-medium text-gray-100 py-4 text-left sticky top-0 border-b bg-gray-800"
+            className="text-xs font-medium text-gray-100 py-2 text-left sticky top-0 border-b bg-gray-800"
           >
             Stats
           </th>

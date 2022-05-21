@@ -5,7 +5,7 @@ interface IFooterBarProps {
 
 export const FooterBar = ({ openOptions, setOpenOptions }: IFooterBarProps) => {
   return (
-    <footer className="sticky top-0 bg-gray-800 text-center text-white rounded-b-md p-4 flex justify-between items-center">
+    <footer className="sticky top-0 bg-gray-800 text-center text-white rounded-b-md p-2 flex justify-between items-center">
       <p className="text-sm font-light">@2022</p>
       <button
         type="button"
