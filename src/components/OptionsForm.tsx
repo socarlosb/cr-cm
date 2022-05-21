@@ -7,7 +7,7 @@ interface IOptionsViewProps {
   setOpenOptions: (value: boolean) => void;
 }
 
-export const OptionsView = ({
+export const OptionsForm = ({
   updateOptions,
   setOpenOptions,
   currentOptions,

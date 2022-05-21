@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IClanInfo, IMemberWithRaceFame, IOptions } from "src/types";
-import { OptionsView } from "src/components/OptionsView";
+import { OptionsForm } from "src/components/OptionsForm";
 import { defaultFilter, defaultOptions } from "src/options";
 import { NavigationBar } from "src/components/NavigationBar";
 import { FooterBar } from "src/components/FooterBar";
@@ -85,7 +85,7 @@ const Home = () => {
     <main className="bg-gray-700">
       <div className="flex flex-col w-screen h-screen max-w-4xl m-auto ring-2 ring-gray-900 rounded-t-md rounded-b-md">
         {openOptions ? (
-          <OptionsView
+          <OptionsForm
             updateOptions={setOptions}
             currentOptions={options}
             setOpenOptions={setOpenOptions}
