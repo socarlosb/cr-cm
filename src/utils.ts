@@ -193,32 +193,6 @@ export const colorMemberRole = (role: string) => {
   }
 };
 
-// export const fetchData = async (clanTag: string) => {
-//   try {
-//     const cleanClanTag = cleanTag(clanTag).toUpperCase();
-//     const riverRaceLog = await getClanRaceLog(cleanClanTag);
-//     const members = await getClanMembers(cleanClanTag);
-//     const currentRace = await getClanCurrentRace(cleanClanTag);
-//     const membersWithRaceLog = await getClanMembersRaceFame(
-//       parseTag(cleanClanTag),
-//       members,
-//       riverRaceLog,
-//       currentRace
-//     );
-//     const clanInfo = {
-//       clanTag: currentRace?.tag,
-//       clanName: currentRace?.name,
-//     };
-//     console.info({ clanInfo, membersWithRaceLog });
-//     console.info("----------------");
-//     return { members: membersWithRaceLog, clanInfo };
-//   } catch (error) {
-//     throw new Error(
-//       "Failed to fetch data, try another tag in the options menu"
-//     );
-//   }
-// };
-
 export const sorter = (filter: string): ((a: any, b: any) => number) => {
   if (
     filter === "currentRaceDecksUsed" ||
