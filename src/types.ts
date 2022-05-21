@@ -80,6 +80,7 @@ export interface IOptions {
 export interface IClanInfo {
   clanTag: string;
   clanName: string;
+  clanTotalMembers: number;
 }
 
 export interface ITopValues {

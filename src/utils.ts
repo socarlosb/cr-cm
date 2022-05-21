@@ -16,39 +16,36 @@ export const parseTag = (clanTag: string) => {
   return clanTag.startsWith("#") ? clanTag : `#${clanTag}`;
 };
 
-export const getClanMembers = async (clanTag: string): Promise<IMember[]> => {
-  const url = `${serverOptions.proxyUrl}/clans/%23${clanTag}/members`;
-
+export const fetchClanMembers = async (_url: string, clanTag: string) => {
+  if (!clanTag) return;
+  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}${_url}`;
   const response = await fetch(url);
   const { data } = await response.json();
-
-  const members = data?.items;
+  if (data?.reason) throw Error(data.reason);
+  const members: IMember[] = data?.items;
   return members;
 };
 
-export const getClanRaceLog = async (clanTag: string): Promise<IRaceLog[]> => {
-  const url = `${serverOptions.proxyUrl}/clans/%23${clanTag}/riverracelog`;
-
+export const fetchClanRaceLog = async (_url: string, clanTag: string) => {
+  if (!clanTag) return;
+  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}${_url}`;
   const response = await fetch(url);
   const { data } = await response.json();
-
+  if (data.reason) throw Error(data.reason);
   const raceLog: IRaceLog[] = data?.items;
   return raceLog;
 };
 
-export const getClanCurrentRace = async (
-  clanTag: string
-): Promise<IClanCurrentRace> => {
-  const url = `${serverOptions.proxyUrl}/clans/%23${clanTag}/currentriverrace`;
-
+export const fetchClanCurrentRace = async (_url: string, clanTag: string) => {
+  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}${_url}`;
   const response = await fetch(url);
   const { data } = await response.json();
-
+  if (data.reason) throw Error(data.reason);
   const currentRace: IClanCurrentRace = data?.clan;
   return currentRace;
 };
 
-const getClanMembersWithRaceFame = (
+const parseClanMembersWithRaceFame = (
   members: IMember[],
   currentRaceParticipants: IParticipants[],
   lastRaceParticipants: IParticipants[],
@@ -122,12 +119,12 @@ const getClanMembersWithRaceFame = (
   });
 };
 
-export const getClanMembersRaceFame = async (
+export const parseClanMembersRaceFame = async (
   clanTag: string,
   members: IMember[],
   raceLog: IRaceLog[],
   currentRace: IClanCurrentRace
-): Promise<IMemberWithRaceFame[]> => {
+) => {
   const getClanStatsOfRace = (race: IRaceLog) => {
     return race.standings.filter((standing) => {
       const { clan } = standing;
@@ -144,7 +141,7 @@ export const getClanMembersRaceFame = async (
     previousRace?.clan.participants;
 
   const clanMembersWithRaceFame: IMemberWithRaceFame[] =
-    getClanMembersWithRaceFame(
+    parseClanMembersWithRaceFame(
       members,
       currentRaceParticipants,
       lastRaceParticipants,
@@ -196,27 +193,31 @@ export const colorMemberRole = (role: string) => {
   }
 };
 
-export const fetchData = async (clanTag: string) => {
-  try {
-    const cleanClanTag = cleanTag(clanTag).toUpperCase();
-    const riverRaceLog = await getClanRaceLog(cleanClanTag);
-    const members = await getClanMembers(cleanClanTag);
-    const currentRace = await getClanCurrentRace(cleanClanTag);
-    const membersWithRaceLog = await getClanMembersRaceFame(
-      parseTag(cleanClanTag),
-      members,
-      riverRaceLog,
-      currentRace
-    );
-    const clanInfo = {
-      clanTag: currentRace?.tag,
-      clanName: currentRace?.name,
-    };
-    return { members: membersWithRaceLog, clanInfo };
-  } catch (error) {
-    return { members: null, clanInfo: null };
-  }
-};
+// export const fetchData = async (clanTag: string) => {
+//   try {
+//     const cleanClanTag = cleanTag(clanTag).toUpperCase();
+//     const riverRaceLog = await getClanRaceLog(cleanClanTag);
+//     const members = await getClanMembers(cleanClanTag);
+//     const currentRace = await getClanCurrentRace(cleanClanTag);
+//     const membersWithRaceLog = await getClanMembersRaceFame(
+//       parseTag(cleanClanTag),
+//       members,
+//       riverRaceLog,
+//       currentRace
+//     );
+//     const clanInfo = {
+//       clanTag: currentRace?.tag,
+//       clanName: currentRace?.name,
+//     };
+//     console.info({ clanInfo, membersWithRaceLog });
+//     console.info("----------------");
+//     return { members: membersWithRaceLog, clanInfo };
+//   } catch (error) {
+//     throw new Error(
+//       "Failed to fetch data, try another tag in the options menu"
+//     );
+//   }
+// };
 
 export const sorter = (filter: string): ((a: any, b: any) => number) => {
   if (
@@ -240,7 +241,6 @@ export const sorter = (filter: string): ((a: any, b: any) => number) => {
   return (a, b) => (a[filter] > b[filter] ? 1 : -1);
 };
 
-// function that searches for a member with a max value and returns name and the max value of the clan
 export const getTopValues = (members: any[], filter: string) => {
   const maxValue = members.reduce((acc, member) => {
     const value = member[filter];

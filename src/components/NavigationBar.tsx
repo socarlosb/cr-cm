@@ -40,7 +40,14 @@ export const NavigationBar = ({
           </option>
         </select>
       </div>
-      <h1 className="text-xl font-medium">{clanInfo?.clanName}</h1>
+      {clanInfo && (
+        <div className="flex items-center">
+          <h1 className="text-xl font-medium">{clanInfo?.clanName}</h1>
+          <span className="p-2 text-gray-400">
+            ({clanInfo?.clanTotalMembers}/50)
+          </span>
+        </div>
+      )}
     </div>
   );
 };

@@ -5,50 +5,69 @@ import { defaultFilter, defaultOptions } from "src/options";
 import { NavigationBar } from "src/components/NavigationBar";
 import { FooterBar } from "src/components/FooterBar";
 import { MembersTable } from "src/components/MembersTable";
-import { fetchData } from "src/utils";
+import {
+  fetchClanCurrentRace,
+  fetchClanMembers,
+  fetchClanRaceLog,
+  parseClanMembersRaceFame,
+} from "src/utils";
+import useSWR from "swr";
 
 const Home = () => {
   const [filter, setFilter] = useState(defaultFilter);
   const [openOptions, setOpenOptions] = useState<boolean>(false);
-  const [oldTag, setOldTag] = useState(defaultOptions.clanTag);
   const [options, setOptions] = useState<IOptions>(defaultOptions);
   const [message, setMessage] = useState("");
-  const [members, setMembers] = useState<IMemberWithRaceFame[] | null>(null);
+  const [parsedMembers, setParsedMembers] = useState<
+    IMemberWithRaceFame[] | null
+  >(null);
   const [clanInformation, setClanInformation] = useState<IClanInfo | null>(
     null
   );
 
-  const update = async (tag: string) => {
-    setMessage("Updating data...");
-    setOldTag(options.clanTag);
-    const { members, clanInfo } = await fetchData(tag);
-    if (!members || !clanInfo) {
-      return setMessage(
-        "Failed to fetch data, try another tag in the options menu"
-      );
-    }
-    setClanInformation(clanInfo);
-    setOldTag(clanInformation?.clanTag || defaultOptions.clanTag);
-    setMembers(members);
-  };
+  const { data: members, error: membersError } = useSWR(
+    [`/members`, options.clanTag],
+    fetchClanMembers
+  );
+  const { data: riverracelog, error: riverracelogError } = useSWR(
+    [`/riverracelog`, options.clanTag],
+    fetchClanRaceLog
+  );
+  const { data: currentriverrace, error: currentriverraceError } = useSWR(
+    [`/currentriverrace`, options.clanTag],
+    fetchClanCurrentRace
+  );
 
   useEffect(() => {
     const localOptions = localStorage.getItem("options") || "";
-    const parsedLocal = localOptions ? JSON.parse(localOptions) : null;
-    if (!parsedLocal) {
-      localStorage.setItem("options", JSON.stringify(defaultOptions));
-      setOptions(defaultOptions);
-      if (defaultOptions.clanTag === "") return setOpenOptions(true);
-      if (members && members?.length > 0 && defaultOptions.clanTag === oldTag)
-        return;
-      update(defaultOptions.clanTag);
-    } else {
-      if (members && members?.length > 0 && parsedLocal.clanTag === oldTag)
-        return;
-      setOptions(parsedLocal);
-      update(parsedLocal.clanTag);
-    }
+    if (localOptions) return setOptions(JSON.parse(localOptions));
+    if (options.clanTag === "") return setOpenOptions(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  useEffect(() => {
+    console.info({ members, riverracelog, currentriverrace });
+    console.info("----------------");
+    if (!members) return;
+    if (!riverracelog) return;
+    if (!currentriverrace) return;
+    parseClanMembersRaceFame(
+      options.clanTag,
+      members,
+      riverracelog,
+      currentriverrace
+    ).then((parsedMembers) => {
+      const clanInfo = {
+        clanTag: currentriverrace?.tag,
+        clanName: currentriverrace?.name,
+        clanTotalMembers: members.length,
+      };
+      setParsedMembers(parsedMembers);
+      setClanInformation(clanInfo);
+    });
+  }, [currentriverrace, members, options.clanTag, riverracelog]);
+
+  useEffect(() => {
     const localFilter = localStorage.getItem("filter") || "";
     const parsedLocalFilter = localFilter ? JSON.parse(localFilter) : null;
     if (!parsedLocalFilter) {
@@ -58,11 +77,6 @@ const Home = () => {
       setFilter(parsedLocalFilter);
     }
   }, []);
-
-  useEffect(() => {
-    setMembers(null);
-    update(options.clanTag);
-  }, [options]);
 
   const handleFilter = (newFilter: string) => {
     localStorage.setItem("filter", JSON.stringify(newFilter));
@@ -85,20 +99,27 @@ const Home = () => {
               setFilter={handleFilter}
               filter={filter}
             />
-
-            {!members ? (
-              <div className="h-full text-center text-white flex justify-center items-center">
-                <p>{message}</p>
-              </div>
-            ) : (
-              <div className="overflow-auto">
-                <MembersTable
-                  members={members}
-                  filter={filter}
-                  options={options}
-                />
-              </div>
-            )}
+            <div className="overflow-auto">
+              {membersError ? (
+                <div className="h-screen text-center text-white flex justify-center items-center">
+                  {membersError.message}
+                </div>
+              ) : (
+                <>
+                  {parsedMembers ? (
+                    <MembersTable
+                      members={parsedMembers}
+                      filter={filter}
+                      options={options}
+                    />
+                  ) : (
+                    <div className="h-screen text-center text-white flex justify-center items-center">
+                      <p>Loading...</p>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
           </>
         )}
         <FooterBar setOpenOptions={setOpenOptions} openOptions={openOptions} />

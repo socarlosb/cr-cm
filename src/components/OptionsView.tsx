@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { IOptions } from "src/types";
 import { parseTag } from "src/utils";
 interface IOptionsViewProps {
@@ -25,8 +25,8 @@ export const OptionsView = ({
     }
   };
 
-  const saveOptions = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const saveOptions = async (event: FormEvent) => {
+    event.preventDefault();
     setMessage("Updating data and saving...");
     setDisable(true);
     localStorage.setItem("options", JSON.stringify(options));
@@ -50,6 +50,7 @@ export const OptionsView = ({
             title="Clan tag"
             defaultValue={options.clanTag}
             onChange={handleChange}
+            autoComplete="on"
           />
           <label htmlFor="minFameWeek">Minimum of race medals per week</label>
           <input
@@ -86,7 +87,6 @@ export const OptionsView = ({
           <button
             disabled={disable}
             className="mt-4 text-sm font-semibold ring-2 ring-gray-100 px-4 py-2 rounded-md bg-gray-100 text-gray-800 transition-colors duration-200 hover:bg-gray-800 hover:text-gray-100 hover:ring-gray-800 disabled:bg-slate-400 disabled:text-gray-100"
-            type="submit"
           >
             {message}
           </button>
