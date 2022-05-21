@@ -29,11 +29,11 @@ const Home = () => {
     [`/members`, options.clanTag],
     fetchClanMembers
   );
-  const { data: riverracelog, error: riverracelogError } = useSWR(
+  const { data: riverracelog } = useSWR(
     [`/riverracelog`, options.clanTag],
     fetchClanRaceLog
   );
-  const { data: currentriverrace, error: currentriverraceError } = useSWR(
+  const { data: currentriverrace } = useSWR(
     [`/currentriverrace`, options.clanTag],
     fetchClanCurrentRace
   );
