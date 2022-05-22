@@ -107,7 +107,25 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
               />
             </picture>
             <p className="ml-1 text-[0.7em] tracking-tighter">
-              {member?.donations}/{member?.donationsReceived}
+              <span
+                className={`${
+                  member?.donations === topValues?.donationsGiven
+                    ? "text-yellow-300"
+                    : ""
+                }`}
+              >
+                {member?.donations}
+              </span>
+              <span className="mx-0.5">/</span>
+              <span
+                className={`${
+                  member?.donationsReceived === topValues?.donationsReceived
+                    ? "text-yellow-300"
+                    : ""
+                }`}
+              >
+                {member?.donationsReceived}
+              </span>
             </p>
           </div>
           <div className="flex items-center justify-center py-0.5">
@@ -137,6 +155,8 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
             className={`text-xs tracking-tighter ${
               member?.currentRaceFame < options.warWeekFame
                 ? "text-orange-500"
+                : member?.currentRaceFame === topValues?.currentRaceTopFame
+                ? "text-yellow-300"
                 : ""
             }`}
           >
@@ -146,6 +166,8 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
             className={`text-xs tracking-tighter opacity-80 ${
               member?.lastRaceFame < options.warWeekFame
                 ? "text-orange-500"
+                : member?.lastRaceFame === topValues?.lastRaceTopFame
+                ? "text-yellow-300"
                 : ""
             }`}
           >
@@ -155,6 +177,8 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
             className={`text-xs tracking-tighter opacity-60 ${
               member?.previousRaceFame < options.warWeekFame
                 ? "text-orange-500"
+                : member?.previousRaceFame === topValues?.previousRaceTopFame
+                ? "text-yellow-300"
                 : ""
             }`}
           >
