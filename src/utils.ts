@@ -10,12 +10,6 @@ import type {
   IStandings,
 } from "./types";
 
-export const cleanTag = (clanTag: string) => clanTag.replace("#", "");
-
-export const parseTag = (clanTag: string) => {
-  return clanTag.startsWith("#") ? clanTag : `#${clanTag}`;
-};
-
 const verifyError = (errorMessage: string) => {
   let cleanErrorMessage;
   switch (errorMessage) {
@@ -29,6 +23,12 @@ const verifyError = (errorMessage: string) => {
       break;
   }
   return cleanErrorMessage;
+};
+
+export const cleanTag = (clanTag: string) => clanTag.replace("#", "");
+
+export const parseTag = (clanTag: string) => {
+  return clanTag.startsWith("#") ? clanTag : `#${clanTag}`;
 };
 
 export const fetchClanMembers = async (_url: string, clanTag: string) => {
@@ -166,23 +166,6 @@ export const parseClanMembersRaceFame = async (
   return clanMembersWithRaceFame;
 };
 
-export const parseDate = (date: string) => {
-  const fullDate = date.split(".")[0];
-  const simpleDate = fullDate.split("T")[0];
-
-  const year = parseInt(simpleDate.slice(0, 4));
-  const month = parseInt(simpleDate.slice(4, 6)) - 1;
-  const day = parseInt(simpleDate.slice(6, 8));
-
-  const dateReceived = new Date(year, month, day);
-
-  return formatDistanceToNowStrict(dateReceived, {
-    addSuffix: true,
-    roundingMethod: "floor",
-    unit: "day",
-  });
-};
-
 export const dateInDays = (date: string) => {
   const fullDate = date.split(".")[0];
   const simpleDate = fullDate.split("T")[0];
@@ -193,19 +176,6 @@ export const dateInDays = (date: string) => {
 
   const dateReceived = new Date(year, month, day);
   return differenceInDays(new Date(), dateReceived);
-};
-
-export const colorMemberRole = (role: string) => {
-  switch (role.toLowerCase()) {
-    case "leader":
-      return "text-purple-400";
-    case "coleader":
-      return "text-blue-400";
-    case "elder":
-      return "text-sky-400";
-    default:
-      return "text-gray-400";
-  }
 };
 
 export const sorter = (filter: string): ((a: any, b: any) => number) => {

@@ -3,7 +3,7 @@ import { defaultTopValues } from "src/options";
 import { IMemberWithRaceFame, IOptions, ITopValues } from "src/types";
 import { getTopValues, sorter } from "src/utils";
 import { MemberItem } from "./MemberItem";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 interface IMembersTableProps {
   members: IMemberWithRaceFame[];
