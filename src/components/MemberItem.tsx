@@ -30,9 +30,19 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
     <motion.article
       {...animateItem}
       layout
-      className="m-2 flex items-center rounded py-2 text-gray-200 ring-1 ring-gray-400"
+      className="m-4 flex items-center rounded  bg-gradient-to-t from-gray-800 to-gray-700 py-2 text-gray-200 shadow-md"
     >
-      <div className="ml-2 flex h-10 w-10 items-center justify-center rounded px-1 font-semibold text-gray-400 ring-2 ring-gray-400">
+      <div
+        className={`ml-2 flex h-10 w-10 items-center justify-center rounded-lg border-2 border-gray-600 px-1 font-bold text-gray-100 ring-1 ring-gray-800 ${
+          index === 0
+            ? "bg-yellow-500"
+            : index === 1
+            ? "bg-gray-400"
+            : index === 2
+            ? "bg-orange-400"
+            : "bg-gray-600"
+        }`}
+      >
         {index + 1}
       </div>
       <div className="relative ml-2 flex h-10 w-10 flex-col items-center justify-start">
@@ -42,7 +52,7 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
               <IconUser />
               {dateInDays(member?.lastSeen) >= options.awayDangerDays && (
                 <p
-                  className={`absolute left-0 right-0 -bottom-0.5 rounded-lg  text-center text-[0.5em] font-semibold text-black ring-1 ring-gray-400 ${
+                  className={`absolute left-0 right-0 rounded-lg text-center text-[0.6em] font-semibold text-black ring-2 ring-gray-400 ${
                     dateInDays(member?.lastSeen) >= options.awayMaxDays
                       ? "bg-orange-800"
                       : "bg-orange-500"

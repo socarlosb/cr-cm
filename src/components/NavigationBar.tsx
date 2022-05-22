@@ -21,10 +21,10 @@ export const NavigationBar = ({
   };
 
   return (
-    <header className="sticky top-0 bg-gray-900 text-white p-2 pb-2 rounded-t-md flex items-center justify-between">
+    <header className="sticky top-0 flex h-20 items-center justify-between rounded-t-md bg-gray-900 p-2 pb-2 text-white">
       {openOptions ? (
         <>
-          <h1 className="text-sm sm:text-xl font-medium">Options</h1>
+          <h1 className="text-sm font-medium sm:text-xl">Options</h1>
           <button
             className="p-2"
             title="Close options"
@@ -36,49 +36,45 @@ export const NavigationBar = ({
         </>
       ) : (
         <>
-          <div>
-            {clanInfo && (
-              <div className="flex items-center">
-                <h1 className="text-sm sm:text-xl font-medium">
-                  {clanInfo?.clanName}
-                </h1>
-                <span className="px-2 font-light text-xs text-gray-400">
-                  ({clanInfo?.clanTotalMembers}/50)
-                </span>
-              </div>
-            )}
-            <div>
-              <label htmlFor="orderby" className="text-xs">
-                Order by:
-              </label>
-              <select
-                className="bg-gray-900 text-xs focus:outline-none transition ease-in-out duration-150 px-2 py-1 rounded-l-md"
-                name="orderBy"
-                title="Order by"
-                onChange={handleOrder}
-                value={filter}
-              >
-                <option value="clanRank">Trophies</option>
-                <option value="lastSeen">Last seen</option>
-                <option value="currentRaceFame">Current fame</option>
-                <option value="currentRaceDecksUsed">Current decks used</option>
-                <option value="currentRaceBoatAttacks">
-                  Current boat attacks
-                </option>
-                <option value="lastRaceFame">Last fame</option>
-                <option value="lastRaceDecksUsed">Last decks used</option>
-                <option value="lastRaceBoatAttacks">Last boat attacks</option>
-              </select>
+          {clanInfo && (
+            <div className="flex flex-col justify-center">
+              <h1 className="text-sm font-medium sm:text-xl">
+                {clanInfo?.clanName}
+              </h1>
+              <p className="text-xs font-light uppercase text-gray-400">
+                Members {clanInfo?.clanTotalMembers}/50
+              </p>
             </div>
+          )}
+          <div className="flex items-center">
+            <select
+              className="rounded-l-md bg-gray-700 py-1 text-xs transition duration-150 ease-in-out focus:outline-none"
+              name="orderBy"
+              title="Order by"
+              onChange={handleOrder}
+              value={filter}
+            >
+              <option value="clanRank">Trophies</option>
+              <option value="lastSeen">Last seen</option>
+              <option value="currentRaceFame">Current medals</option>
+              <option value="currentRaceDecksUsed">Current decks used</option>
+              <option value="currentRaceBoatAttacks">
+                Current boat attacks
+              </option>
+              <option value="lastRaceFame">Last medals</option>
+              <option value="lastRaceDecksUsed">Last decks used</option>
+              <option value="lastRaceBoatAttacks">Last boat attacks</option>
+            </select>
+
+            <button
+              className="p-2"
+              title="Options"
+              type="button"
+              onClick={() => setOpenOptions(true)}
+            >
+              <IconOptions />
+            </button>
           </div>
-          <button
-            className="p-2"
-            title="Options"
-            type="button"
-            onClick={() => setOpenOptions(true)}
-          >
-            <IconOptions />
-          </button>
         </>
       )}
     </header>

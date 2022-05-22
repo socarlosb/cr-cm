@@ -81,7 +81,7 @@ const Home = () => {
   };
 
   return (
-    <main className="bg-gray-700">
+    <main className="bg-gray-600">
       <div className="m-auto flex h-screen w-screen max-w-4xl flex-col rounded-t-md rounded-b-md ring-2 ring-gray-900">
         <NavigationBar
           clanInfo={clanInformation}
