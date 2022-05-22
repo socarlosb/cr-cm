@@ -1,7 +1,7 @@
-import Error from "next/error";
 import React, { FormEvent, useState } from "react";
 import { IOptions } from "src/types";
 import { parseTag } from "src/utils";
+import { motion } from "framer-motion";
 interface IOptionsViewProps {
   currentOptions: IOptions;
   updateOptions: (options: IOptions) => void;
@@ -36,7 +36,13 @@ export const OptionsForm = ({
 
   return (
     <>
-      <div className="h-full">
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0, opacity: 0 }}
+        transition={{ duration: 1 }}
+        className="h-full"
+      >
         <form className="m-10 text-gray-100" onSubmit={saveOptions}>
           <label htmlFor="clanTag">Clan tag</label>
           <input
@@ -108,7 +114,7 @@ export const OptionsForm = ({
             Save options
           </button>
         </form>
-      </div>
+      </motion.div>
     </>
   );
 };

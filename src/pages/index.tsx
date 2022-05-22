@@ -11,6 +11,7 @@ import {
   parseClanMembersRaceFame,
 } from "src/utils";
 import useSWR from "swr";
+import { AnimatePresence } from "framer-motion";
 
 const Home = () => {
   const [filter, setFilter] = useState(defaultFilter);
@@ -90,11 +91,13 @@ const Home = () => {
           setOpenOptions={setOpenOptions}
         />
         {openOptions ? (
-          <OptionsForm
-            updateOptions={setOptions}
-            currentOptions={options}
-            setOpenOptions={setOpenOptions}
-          />
+          <AnimatePresence exitBeforeEnter>
+            <OptionsForm
+              updateOptions={setOptions}
+              currentOptions={options}
+              setOpenOptions={setOpenOptions}
+            />
+          </AnimatePresence>
         ) : (
           <>
             <div className="overflow-auto">

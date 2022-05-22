@@ -4,6 +4,7 @@ import { FC } from "react";
 import { IconUser } from "src/icons";
 import { IMemberWithRaceFame, IOptions, ITopValues } from "src/types";
 import { cleanTag, dateInDays } from "src/utils";
+import { motion } from "framer-motion";
 
 interface IMemberTableItemProps {
   member: IMemberWithRaceFame;
@@ -12,6 +13,13 @@ interface IMemberTableItemProps {
   index: number;
 }
 
+const animateItem = {
+  initial: { y: 100, opacity: 0 },
+  animate: { y: 0, opacity: 1 },
+  exit: { y: 100, opacity: 0 },
+  transition: { stiffness: 700, damping: 50, duration: 1 },
+};
+
 export const MemberItem: FC<IMemberTableItemProps> = ({
   member,
   options,
@@ -19,7 +27,11 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
   index,
 }) => {
   return (
-    <article className="m-2 flex items-center rounded py-2 text-gray-200 ring-1 ring-gray-400">
+    <motion.article
+      {...animateItem}
+      layout
+      className="m-2 flex items-center rounded py-2 text-gray-200 ring-1 ring-gray-400"
+    >
       <div className="ml-2 flex h-10 w-10 items-center justify-center rounded px-1 font-semibold text-gray-400 ring-2 ring-gray-400">
         {index + 1}
       </div>
@@ -162,6 +174,6 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
           </p>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 };

@@ -3,6 +3,7 @@ import { defaultTopValues } from "src/options";
 import { IMemberWithRaceFame, IOptions, ITopValues } from "src/types";
 import { getTopValues, sorter } from "src/utils";
 import { MemberItem } from "./MemberItem";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 
 interface IMembersTableProps {
   members: IMemberWithRaceFame[];
@@ -42,17 +43,19 @@ export const MembersTable: FC<IMembersTableProps> = ({
 
   return (
     <section className="w-full">
-      {members
-        .sort(sorter(filter))
-        .map((member: IMemberWithRaceFame, i: number) => (
-          <MemberItem
-            key={member.tag}
-            member={member}
-            options={options}
-            topValues={topValues}
-            index={i}
-          />
-        ))}
+      <AnimatePresence>
+        {members
+          .sort(sorter(filter))
+          .map((member: IMemberWithRaceFame, i: number) => (
+            <MemberItem
+              key={member.tag}
+              member={member}
+              options={options}
+              topValues={topValues}
+              index={i}
+            />
+          ))}
+      </AnimatePresence>
     </section>
   );
 };
