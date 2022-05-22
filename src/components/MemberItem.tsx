@@ -13,8 +13,6 @@ interface IMemberTableItemProps {
   index: number;
 }
 
-const animateItem = {};
-
 export const MemberItem: FC<IMemberTableItemProps> = ({
   member,
   options,
@@ -135,11 +133,31 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
               alt="war fame medals"
             />
           </picture>
-          <p className="text-xs tracking-tighter">{member?.currentRaceFame}</p>
-          <p className="text-xs tracking-tighter opacity-80">
+          <p
+            className={`text-xs tracking-tighter ${
+              member?.currentRaceFame < options.warWeekFame
+                ? "text-orange-500"
+                : ""
+            }`}
+          >
+            {member?.currentRaceFame}
+          </p>
+          <p
+            className={`text-xs tracking-tighter opacity-80 ${
+              member?.lastRaceFame < options.warWeekFame
+                ? "text-orange-500"
+                : ""
+            }`}
+          >
             {member?.lastRaceFame}
           </p>
-          <p className="text-xs tracking-tighter opacity-60">
+          <p
+            className={`text-xs tracking-tighter opacity-60 ${
+              member?.previousRaceFame < options.warWeekFame
+                ? "text-orange-500"
+                : ""
+            }`}
+          >
             {member?.previousRaceFame}
           </p>
         </div>
