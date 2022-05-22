@@ -37,13 +37,16 @@ export const OptionsForm = ({
   return (
     <>
       <motion.div
-        initial={{ scale: 0, opacity: 0 }}
+        initial={{ scale: 0.5, opacity: 0.5 }}
         animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0, opacity: 0 }}
-        transition={{ duration: 1 }}
+        exit={{ scale: 0.5, opacity: 0.5 }}
+        transition={{ duration: 0.5, type: "tween" }}
         className="h-full"
       >
-        <form className="m-10 text-gray-100" onSubmit={saveOptions}>
+        <form
+          className="m-4 flex flex-col rounded bg-gradient-to-t from-gray-800 to-gray-700 px-4 py-8 text-gray-200 shadow-md"
+          onSubmit={saveOptions}
+        >
           <label htmlFor="clanTag">Clan tag</label>
           <input
             disabled={disable}
@@ -109,7 +112,8 @@ export const OptionsForm = ({
           <button
             type="submit"
             disabled={disable}
-            className="mt-4 w-full rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-800 ring-2 ring-gray-100 transition-colors duration-200 hover:bg-gray-800 hover:text-gray-100 hover:ring-gray-800 disabled:bg-slate-400 disabled:text-gray-100"
+            // className="mt-4 w-full rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-800 ring-2 ring-gray-100 transition-colors duration-200 hover:bg-gray-800 hover:text-gray-100 hover:ring-gray-800 disabled:bg-slate-400 disabled:text-gray-100"
+            className="mt-4 rounded bg-gray-200 p-1 py-2 text-gray-900 ring-1 ring-gray-200 hover:bg-gray-900 hover:text-gray-200 hover:ring-gray-900 focus:outline-none"
           >
             Save options
           </button>

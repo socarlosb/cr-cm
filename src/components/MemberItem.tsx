@@ -13,12 +13,7 @@ interface IMemberTableItemProps {
   index: number;
 }
 
-const animateItem = {
-  initial: { y: 100, opacity: 0 },
-  animate: { y: 0, opacity: 1 },
-  exit: { y: 100, opacity: 0 },
-  transition: { stiffness: 700, damping: 50, duration: 1 },
-};
+const animateItem = {};
 
 export const MemberItem: FC<IMemberTableItemProps> = ({
   member,
@@ -28,7 +23,10 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
 }) => {
   return (
     <motion.article
-      {...animateItem}
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: 100, opacity: 0 }}
+      transition={{ duration: 0.7, type: "tween" }}
       layout
       className="m-2 flex items-center rounded  bg-gradient-to-t from-gray-800 to-gray-700 py-2 text-gray-200 shadow-md"
     >

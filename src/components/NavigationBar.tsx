@@ -21,12 +21,12 @@ export const NavigationBar = ({
   };
 
   return (
-    <header className="sticky top-0 flex h-20 items-center justify-between rounded-t-md bg-gray-900 p-2 pb-2 text-white">
+    <header className="sticky top-0 flex items-center justify-between rounded-t-md bg-gray-900 p-2 pb-2 text-white">
       {openOptions ? (
         <>
           <h1 className="text-sm font-medium sm:text-xl">Options</h1>
           <button
-            className="p-2"
+            className="m-2 rounded p-1 ring-1 ring-gray-300 hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
             title="Close options"
             type="button"
             onClick={() => setOpenOptions(false)}
@@ -36,7 +36,7 @@ export const NavigationBar = ({
         </>
       ) : (
         <>
-          {clanInfo && (
+          {clanInfo ? (
             <div className="flex flex-col justify-center">
               <h1 className="text-sm font-medium sm:text-xl">
                 {clanInfo?.clanName}
@@ -45,6 +45,8 @@ export const NavigationBar = ({
                 Members {clanInfo?.clanTotalMembers}/50
               </p>
             </div>
+          ) : (
+            <p></p>
           )}
           <div className="flex items-center justify-end">
             <select
@@ -67,7 +69,7 @@ export const NavigationBar = ({
             </select>
 
             <button
-              className="p-2"
+              className="m-2 rounded p-1 ring-1 ring-gray-300 hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
               title="Options"
               type="button"
               onClick={() => setOpenOptions(true)}
