@@ -46,7 +46,7 @@ export const NavigationBar = ({
               </p>
             </div>
           )}
-          <div className="flex items-center">
+          <div className="flex items-center justify-end">
             <select
               className="rounded-l-md bg-gray-700 py-1 text-xs transition duration-150 ease-in-out focus:outline-none"
               name="orderBy"
