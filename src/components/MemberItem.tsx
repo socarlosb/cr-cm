@@ -30,7 +30,7 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
     <motion.article
       {...animateItem}
       layout
-      className="m-4 flex items-center rounded  bg-gradient-to-t from-gray-800 to-gray-700 py-2 text-gray-200 shadow-md"
+      className="m-2 flex items-center rounded  bg-gradient-to-t from-gray-800 to-gray-700 py-2 text-gray-200 shadow-md"
     >
       <div
         className={`ml-2 flex h-10 w-10 items-center justify-center rounded-lg border-2 border-gray-600 px-1 font-bold text-gray-100 ring-1 ring-gray-800 ${
