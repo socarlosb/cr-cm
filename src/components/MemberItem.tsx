@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
-import { IconUser } from "src/icons";
 import { IMemberWithRaceFame, IOptions, ITopValues } from "src/types";
 import { cleanTag, dateInDays } from "src/utils";
 import { motion } from "framer-motion";
+import { getArenaImage } from "src/options";
 
 interface IMemberTableItemProps {
   member: IMemberWithRaceFame;
@@ -45,7 +45,12 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
         <div className="flex h-10 w-10 items-center justify-center rounded-full text-center ring-2 ring-gray-400 hover:bg-gray-50 hover:text-gray-600">
           <Link href={`clashroyale://playerInfo?id=${cleanTag(member.tag)}`}>
             <a target="_blank">
-              <IconUser />
+              <Image
+                src={getArenaImage(member?.arena?.id)}
+                width={50}
+                height={50}
+                alt="number of trophies"
+              />
               {dateInDays(member?.lastSeen) >= options.awayDangerDays && (
                 <p
                   className={`absolute left-0 right-0 rounded-lg text-center text-[0.6em] font-semibold text-black ring-2 ring-gray-400 ${
