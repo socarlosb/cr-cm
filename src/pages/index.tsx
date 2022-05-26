@@ -4,14 +4,13 @@ import { OptionsForm } from "src/components/OptionsForm";
 import { defaultFilter, defaultOptions } from "src/options";
 import { NavigationBar } from "src/components/NavigationBar";
 import { MembersTable } from "src/components/MembersTable";
-import {
-  fetchClanCurrentRace,
-  fetchClanMembers,
-  fetchClanRaceLog,
-  parseClanMembersRaceFame,
-} from "src/utils";
-import useSWR from "swr";
+import { parseClanMembersRaceFame, isAnError } from "src/utils";
 import { AnimatePresence } from "framer-motion";
+import useMembers from "src/hooks/useMembers";
+import useRaceLog from "src/hooks/useRaceLog";
+import useCurrentRace from "src/hooks/useCurrentRace";
+import Layout from "src/components/Layout";
+import { IconSpinner } from "src/icons";
 
 const Home = () => {
   const [filter, setFilter] = useState(defaultFilter);
@@ -24,18 +23,11 @@ const Home = () => {
     null
   );
 
-  const { data: members, error: membersError } = useSWR(
-    [`/members`, options.clanTag],
-    fetchClanMembers
-  );
-  const { data: riverracelog } = useSWR(
-    [`/riverracelog`, options.clanTag],
-    fetchClanRaceLog
-  );
-  const { data: currentriverrace } = useSWR(
-    [`/currentriverrace`, options.clanTag],
-    fetchClanCurrentRace
-  );
+  const { clanTag } = options;
+
+  const { data: members, isError, error, isLoading } = useMembers(clanTag);
+  const { data: riverracelog } = useRaceLog(clanTag);
+  const { data: currentriverrace } = useCurrentRace(clanTag);
 
   useEffect(() => {
     const localOptions = localStorage.getItem("options") || "";
@@ -81,50 +73,49 @@ const Home = () => {
   };
 
   return (
-    <main className="bg-gray-600">
-      <div className="m-auto flex h-screen w-screen max-w-4xl flex-col rounded-t-md rounded-b-md ring-2 ring-gray-900">
-        <NavigationBar
-          clanInfo={clanInformation}
-          setFilter={handleFilter}
-          filter={filter}
-          openOptions={openOptions}
-          setOpenOptions={setOpenOptions}
-        />
-        {openOptions ? (
-          <AnimatePresence exitBeforeEnter>
-            <OptionsForm
-              updateOptions={setOptions}
-              currentOptions={options}
-              setOpenOptions={setOpenOptions}
-            />
-          </AnimatePresence>
-        ) : (
+    <Layout>
+      <NavigationBar
+        clanInfo={clanInformation}
+        setFilter={handleFilter}
+        filter={filter}
+        openOptions={openOptions}
+        setOpenOptions={setOpenOptions}
+      />
+
+      {openOptions ? (
+        <AnimatePresence exitBeforeEnter>
+          <OptionsForm
+            updateOptions={setOptions}
+            currentOptions={options}
+            setOpenOptions={setOpenOptions}
+          />
+        </AnimatePresence>
+      ) : (
+        <div className="overflow-auto">
           <>
-            <div className="overflow-auto">
-              {membersError ? (
-                <div className="flex h-screen items-center justify-center text-center text-white">
-                  {membersError.message}
-                </div>
-              ) : (
-                <>
-                  {parsedMembers ? (
-                    <MembersTable
-                      members={parsedMembers}
-                      filter={filter}
-                      options={options}
-                    />
-                  ) : (
-                    <div className="flex h-screen items-center justify-center text-center text-white">
-                      <p>Loading...</p>
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
+            {isLoading && (
+              <div className="flex h-screen items-center justify-center text-center text-white">
+                <IconSpinner />
+              </div>
+            )}
+
+            {isAnError(error) && (
+              <div className="flex h-screen items-center justify-center text-center text-white">
+                {error?.message}
+              </div>
+            )}
+
+            {parsedMembers && (
+              <MembersTable
+                members={parsedMembers}
+                filter={filter}
+                options={options}
+              />
+            )}
           </>
-        )}
-      </div>
-    </main>
+        </div>
+      )}
+    </Layout>
   );
 };
 

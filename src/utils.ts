@@ -10,7 +10,7 @@ import type {
   IStandings,
 } from "./types";
 
-const verifyError = (errorMessage: string) => {
+export const verifyError = (errorMessage: string) => {
   let cleanErrorMessage;
   switch (errorMessage) {
     case "notFound":
@@ -29,35 +29,6 @@ export const cleanTag = (clanTag: string) => clanTag.replace("#", "");
 
 export const parseTag = (clanTag: string) => {
   return clanTag.startsWith("#") ? clanTag : `#${clanTag}`;
-};
-
-export const fetchClanMembers = async (_url: string, clanTag: string) => {
-  if (!clanTag) return;
-  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}${_url}`;
-  const response = await fetch(url);
-  const { data } = await response.json();
-  if (data?.reason) throw Error(verifyError(data.reason));
-  const members: IMember[] = data?.items;
-  return members;
-};
-
-export const fetchClanRaceLog = async (_url: string, clanTag: string) => {
-  if (!clanTag) return;
-  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}${_url}`;
-  const response = await fetch(url);
-  const { data } = await response.json();
-  if (data.reason) throw Error(data.reason);
-  const raceLog: IRaceLog[] = data?.items;
-  return raceLog;
-};
-
-export const fetchClanCurrentRace = async (_url: string, clanTag: string) => {
-  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}${_url}`;
-  const response = await fetch(url);
-  const { data } = await response.json();
-  if (data.reason) throw Error(data.reason);
-  const currentRace: IClanCurrentRace = data?.clan;
-  return currentRace;
 };
 
 const parseClanMembersWithRaceFame = (
@@ -210,4 +181,8 @@ export const getTopValues = (members: any[], filter: string) => {
   }, 0);
 
   return maxValue;
+};
+
+export const isAnError = (error: unknown): error is Error => {
+  return error instanceof Error;
 };
