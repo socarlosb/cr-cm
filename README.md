@@ -1,3 +1,3 @@
-# Welcome to another Clash Royale Clan Management tool!
+# Another Clash Royale Clan Management tool!
 
-app running on https://cr-cm.vercel.app/
+App running on https://cr-cm.vercel.app/
