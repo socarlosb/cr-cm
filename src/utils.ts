@@ -1,6 +1,4 @@
-import { differenceInDays, formatDistanceToNowStrict } from "date-fns";
-import { serverOptions } from "./options";
-
+import { differenceInDays } from "date-fns";
 import type {
   IClanCurrentRace,
   IMember,
@@ -25,9 +23,10 @@ export const verifyError = (errorMessage: string) => {
   return cleanErrorMessage;
 };
 
-export const cleanTag = (clanTag: string) => clanTag.replace("#", "");
+export const RemoveSymbolFromTag = (clanTag: string) =>
+  clanTag.replace("#", "");
 
-export const parseTag = (clanTag: string) => {
+export const AddSymbolToTag = (clanTag: string) => {
   return clanTag.startsWith("#") ? clanTag : `#${clanTag}`;
 };
 

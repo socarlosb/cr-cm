@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
 import { serverOptions } from "src/options";
 import { IClanCurrentRace } from "src/types";
-import { cleanTag } from "src/utils";
+import { RemoveSymbolFromTag } from "src/utils";
 
 const fetchClanCurrentRace = async (clanTag: string) => {
-  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(
+  const url = `${serverOptions.proxyUrl}/clans/%23${RemoveSymbolFromTag(
     clanTag
   )}/currentriverrace`;
   const response = await fetch(url);

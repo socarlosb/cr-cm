@@ -1,11 +1,13 @@
 import { useQuery } from "react-query";
 import { serverOptions } from "src/options";
 import { IMember } from "src/types";
-import { cleanTag, verifyError } from "src/utils";
+import { RemoveSymbolFromTag, verifyError } from "src/utils";
 
 const fetchClanMembers = async (clanTag: string) => {
   if (!clanTag) return;
-  const url = `${serverOptions.proxyUrl}/clans/%23${cleanTag(clanTag)}/members`;
+  const url = `${serverOptions.proxyUrl}/clans/%23${RemoveSymbolFromTag(
+    clanTag
+  )}/members`;
   const response = await fetch(url);
   const { data } = await response.json();
   if (data?.reason) throw new Error(verifyError(data.reason));

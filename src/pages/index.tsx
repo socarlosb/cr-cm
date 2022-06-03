@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import { IClanInfo, IMemberWithRaceFame, IOptions } from "src/types";
-import { OptionsForm } from "src/components/OptionsForm";
-import { defaultFilter, defaultOptions } from "src/options";
-import { NavigationBar } from "src/components/NavigationBar";
-import { MembersTable } from "src/components/MembersTable";
-import { parseClanMembersRaceFame, isAnError } from "src/utils";
 import { AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import Layout from "src/components/Layout";
+import { MembersTable } from "src/components/MembersTable";
+import { NavigationBar } from "src/components/NavigationBar";
+import { OptionsForm } from "src/components/OptionsForm";
+import useCurrentRace from "src/hooks/useCurrentRace";
 import useMembers from "src/hooks/useMembers";
 import useRaceLog from "src/hooks/useRaceLog";
-import useCurrentRace from "src/hooks/useCurrentRace";
-import Layout from "src/components/Layout";
 import { IconSpinner } from "src/icons";
+import { defaultFilter, defaultOptions } from "src/options";
+import { IClanInfo, IMemberWithRaceFame, IOptions } from "src/types";
+import { isAnError, parseClanMembersRaceFame } from "src/utils";
 
 const Home = () => {
   const [filter, setFilter] = useState(defaultFilter);
