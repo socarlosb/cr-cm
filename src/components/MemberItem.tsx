@@ -26,7 +26,12 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
       exit={{ y: 100, opacity: 0 }}
       transition={{ duration: 0.7, type: "tween" }}
       layout
-      className="m-2 flex items-center rounded  bg-gradient-to-t from-gray-800 to-gray-700 py-2 text-gray-200 shadow-md"
+      className={`m-2 flex items-center rounded bg-gradient-to-t from-gray-800 to-gray-700 py-2 text-gray-200 shadow-md ${
+        (member.currentRaceFame === 0 && member.lastRaceFame === 0) ||
+        member.lastRaceFame <= options.warWeekFame
+          ? "ring-2 ring-orange-800"
+          : ""
+      }`}
     >
       <div
         className={`ml-2 flex h-10 w-10 items-center justify-center rounded-lg border-2 border-gray-600 px-1 font-bold text-gray-100 ring-1 ring-gray-800 ${
