@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FC } from "react";
 import { getArenaImage } from "src/options";
 import { IMemberWithRaceFame, IOptions, ITopValues } from "src/types";
-import { dateInDays, RemoveSymbolFromTag } from "src/utils";
+import { dateInDays, removeSymbolFromTag } from "src/utils";
 
 interface IMemberTableItemProps {
   member: IMemberWithRaceFame;
@@ -49,7 +49,7 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
       <div className="relative ml-2 flex h-10 w-10 flex-col items-center justify-start">
         <div className="flex h-10 w-10 items-center justify-center rounded-full text-center ring-2 ring-gray-400 hover:bg-gray-50 hover:text-gray-600">
           <Link
-            href={`clashroyale://playerInfo?id=${RemoveSymbolFromTag(
+            href={`clashroyale://playerInfo?id=${removeSymbolFromTag(
               member.tag
             )}`}
           >
@@ -82,7 +82,7 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
         <div className="mt-2 flex items-center">
           <p className="text-xs uppercase tracking-tighter">{member?.role}</p>
           <Link
-            href={`https://royaleapi.com/player/${RemoveSymbolFromTag(
+            href={`https://royaleapi.com/player/${removeSymbolFromTag(
               member?.tag
             )}`}
           >

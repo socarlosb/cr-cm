@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import React, { FormEvent, useState } from "react";
 import { IOptions } from "src/types";
-import { AddSymbolToTag } from "src/utils";
+import { addSymbolToTag } from "src/utils";
 interface IOptionsViewProps {
   currentOptions: IOptions;
   updateOptions: (options: IOptions) => void;
@@ -20,7 +20,7 @@ export const OptionsForm = ({
   const saveOptions = async (event: FormEvent) => {
     event.preventDefault();
     if (options.clanTag === "") return setMessage("Clan tag is required");
-    const verifiedTag = AddSymbolToTag(options.clanTag);
+    const verifiedTag = addSymbolToTag(options.clanTag);
     setOptions({ ...options, clanTag: verifiedTag });
     if (!options.warWeekFame)
       return setMessage("Minimum of race medals per week is required");
@@ -59,7 +59,7 @@ export const OptionsForm = ({
             onChange={(e) =>
               setOptions({
                 ...options,
-                [e.target.name]: AddSymbolToTag(e.target.value),
+                [e.target.name]: addSymbolToTag(e.target.value),
               })
             }
             autoComplete="on"

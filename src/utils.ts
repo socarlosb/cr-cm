@@ -23,10 +23,10 @@ export const verifyError = (errorMessage: string) => {
   return cleanErrorMessage;
 };
 
-export const RemoveSymbolFromTag = (clanTag: string) =>
+export const removeSymbolFromTag = (clanTag: string) =>
   clanTag.replace("#", "");
 
-export const AddSymbolToTag = (clanTag: string) => {
+export const addSymbolToTag = (clanTag: string) => {
   return clanTag.startsWith("#") ? clanTag : `#${clanTag}`;
 };
 
