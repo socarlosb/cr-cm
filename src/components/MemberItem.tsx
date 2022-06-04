@@ -19,6 +19,28 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
   topValues,
   index,
 }) => {
+  const isFailingCurrentFameTarget =
+    member.currentRaceFame === 0 ||
+    member.currentRaceFame < options.warWeekFame;
+  const isFailingLastFameTarget =
+    member.lastRaceFame !== "-" &&
+    (member.lastRaceFame === 0 || member.lastRaceFame <= options.warWeekFame);
+  const isFailingPreviousFameTarget =
+    member.previousRaceFame !== "-" &&
+    (member.previousRaceFame === 0 ||
+      member.previousRaceFame <= options.warWeekFame);
+  const isAwayForDangerDays =
+    dateInDays(member.lastSeen) >= options.awayDangerDays;
+  const isAwayForMaxDays = dateInDays(member.lastSeen) >= options.awayMaxDays;
+  const isTopDonationsGiven = member.donations === topValues.donationsGiven;
+  const isTopDonationsReceived =
+    member.donationsReceived === topValues.donationsReceived;
+  const isTopCurrentRaceFame =
+    member.currentRaceFame === topValues.currentRaceTopFame;
+  const isTopLastRaceFame = member.lastRaceFame === topValues.lastRaceTopFame;
+  const isTopPreviousRaceFame =
+    member.previousRaceFame === topValues.previousRaceTopFame;
+
   return (
     <motion.article
       initial={{ y: 100, opacity: 0 }}
@@ -27,8 +49,7 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
       transition={{ duration: 0.7, type: "tween" }}
       layout
       className={`m-2 flex items-center rounded bg-gradient-to-t from-gray-800 to-gray-700 py-2 text-gray-200 shadow-md ${
-        (member.currentRaceFame === 0 && member.lastRaceFame === 0) ||
-        member.lastRaceFame <= options.warWeekFame
+        isFailingCurrentFameTarget && isFailingLastFameTarget
           ? "ring-2 ring-orange-800"
           : ""
       }`}
@@ -60,12 +81,10 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
                 height={50}
                 alt="number of trophies"
               />
-              {dateInDays(member?.lastSeen) >= options.awayDangerDays && (
+              {isAwayForDangerDays && (
                 <p
                   className={`absolute left-0 right-0 rounded-lg text-center text-[0.6em] font-semibold text-black ring-2 ring-gray-400 ${
-                    dateInDays(member?.lastSeen) >= options.awayMaxDays
-                      ? "bg-orange-800"
-                      : "bg-orange-500"
+                    isAwayForMaxDays ? "bg-orange-800" : "bg-orange-500"
                   }`}
                 >
                   {dateInDays(member?.lastSeen)} days
@@ -126,21 +145,13 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
             </picture>
             <p className="ml-1 text-[0.7em] tracking-tighter">
               <span
-                className={`${
-                  member?.donations === topValues?.donationsGiven
-                    ? "text-yellow-300"
-                    : ""
-                }`}
+                className={`${isTopDonationsGiven ? "text-yellow-300" : ""}`}
               >
                 {member?.donations}
               </span>
               <span className="mx-0.5">/</span>
               <span
-                className={`${
-                  member?.donationsReceived === topValues?.donationsReceived
-                    ? "text-yellow-300"
-                    : ""
-                }`}
+                className={`${isTopDonationsReceived ? "text-yellow-300" : ""}`}
               >
                 {member?.donationsReceived}
               </span>
@@ -171,9 +182,9 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
           </picture>
           <p
             className={`text-xs tracking-tighter ${
-              member?.currentRaceFame < options.warWeekFame
+              isFailingCurrentFameTarget
                 ? "text-orange-500"
-                : member?.currentRaceFame === topValues?.currentRaceTopFame
+                : isTopCurrentRaceFame
                 ? "text-yellow-300"
                 : ""
             }`}
@@ -182,9 +193,9 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
           </p>
           <p
             className={`text-xs tracking-tighter opacity-80 ${
-              member?.lastRaceFame < options.warWeekFame
+              isFailingLastFameTarget
                 ? "text-orange-500"
-                : member?.lastRaceFame === topValues?.lastRaceTopFame
+                : isTopLastRaceFame
                 ? "text-yellow-300"
                 : ""
             }`}
@@ -193,9 +204,9 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
           </p>
           <p
             className={`text-xs tracking-tighter opacity-60 ${
-              member?.previousRaceFame < options.warWeekFame
+              isFailingPreviousFameTarget
                 ? "text-orange-500"
-                : member?.previousRaceFame === topValues?.previousRaceTopFame
+                : isTopPreviousRaceFame
                 ? "text-yellow-300"
                 : ""
             }`}
