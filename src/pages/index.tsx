@@ -44,12 +44,15 @@ const Home = () => {
       options.clanTag,
       members,
       riverracelog,
-      currentriverrace
+      currentriverrace.currentRace
     ).then((parsedMembers) => {
       const clanInfo = {
-        clanTag: currentriverrace?.tag,
-        clanName: currentriverrace?.name,
+        clanTag: currentriverrace.currentRace.tag,
+        clanName: currentriverrace.currentRace.name,
         clanTotalMembers: members.length,
+        clanRacePosition: currentriverrace.clanRacePosition,
+        clanRaceType: currentriverrace.raceType,
+        clanRaceFame: currentriverrace.currentRace.fame,
       };
       setParsedMembers(parsedMembers);
       setClanInformation(clanInfo);

@@ -44,6 +44,15 @@ export const NavigationBar = ({
               <p className="text-xs font-light uppercase text-gray-400">
                 Members {clanInfo?.clanTotalMembers}/50
               </p>
+              <p className="text-xs font-light  text-gray-400">
+                <span className="">Fame: {clanInfo.clanRaceFame}</span>
+                <span className="mx-2">
+                  Position: {clanInfo.clanRacePosition + 1}
+                </span>
+                <span className="capitalize">
+                  Race type: {clanInfo.clanRaceType}
+                </span>
+              </p>
             </div>
           ) : (
             <p></p>
