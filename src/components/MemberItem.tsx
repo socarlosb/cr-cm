@@ -20,15 +20,16 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
   index,
 }) => {
   const isFailingCurrentFameTarget =
-    member.currentRaceFame === 0 ||
-    member.currentRaceFame < options.warWeekFame;
+    member.currentRaceFame !== "-" &&
+    (member.currentRaceFame === 0 ||
+      member.currentRaceFame < options.warWeekFame);
   const isFailingLastFameTarget =
     member.lastRaceFame !== "-" &&
-    (member.lastRaceFame === 0 || member.lastRaceFame <= options.warWeekFame);
+    (member.lastRaceFame === 0 || member.lastRaceFame < options.warWeekFame);
   const isFailingPreviousFameTarget =
     member.previousRaceFame !== "-" &&
     (member.previousRaceFame === 0 ||
-      member.previousRaceFame <= options.warWeekFame);
+      member.previousRaceFame < options.warWeekFame);
   const isAwayForDangerDays =
     dateInDays(member.lastSeen) >= options.awayDangerDays;
   const isAwayForMaxDays = dateInDays(member.lastSeen) >= options.awayMaxDays;
