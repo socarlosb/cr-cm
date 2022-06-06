@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { IconClose, IconOptions } from "src/icons";
 import { IClanInfo } from "src/types";
 
@@ -40,14 +41,29 @@ export const NavigationBar = ({
             <div className="flex flex-col justify-center">
               <h1 className="text-sm font-medium sm:text-xl">
                 {clanInfo?.clanName}
+                <span className="ml-2 text-xs font-light uppercase text-gray-400">
+                  Members {clanInfo?.clanTotalMembers}/50
+                </span>
               </h1>
-              <p className="text-xs font-light uppercase text-gray-400">
-                Members {clanInfo?.clanTotalMembers}/50
+              <p className="text-xs font-light text-gray-400">
+                <span className="capitalize">
+                  Race type: {clanInfo.clanRaceType}
+                </span>
               </p>
-              <p className="text-xs font-light  text-gray-400">
-                <span className="">Fame: {clanInfo.clanRaceFame}</span>
-                <span className="mx-2">
+              <p className="align-center my-1 flex text-xs font-light text-gray-400">
+                <span className="">
                   Position: {clanInfo.clanRacePosition + 1}
+                </span>
+                <span className="ml-1">
+                  <picture className="text-[0.6em] tracking-tighter">
+                    <Image
+                      src="/cw-fame.webp"
+                      width={14}
+                      height={14}
+                      alt="war fame medals"
+                    />
+                  </picture>
+                  {clanInfo.clanRaceFame}
                 </span>
               </p>
             </div>
