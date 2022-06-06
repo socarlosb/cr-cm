@@ -167,7 +167,7 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
               />
             </picture>
             <p className="ml-1 text-xs tracking-tighter">
-              {4 - Number(member?.currentRaceDecksUsedToday)}/4
+              {4 - Number(member.currentRaceDecksUsedToday) || 4}/4
             </p>
           </div>
         </div>
