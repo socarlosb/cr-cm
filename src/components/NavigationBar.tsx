@@ -49,9 +49,6 @@ export const NavigationBar = ({
                 <span className="mx-2">
                   Position: {clanInfo.clanRacePosition + 1}
                 </span>
-                <span className="capitalize">
-                  Race type: {clanInfo.clanRaceType}
-                </span>
               </p>
             </div>
           ) : (
