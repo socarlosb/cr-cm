@@ -22,7 +22,7 @@ export const NavigationBar = ({
   };
 
   return (
-    <header className="sticky top-0 flex items-center justify-between rounded-t-md bg-gray-900 p-2 pb-2 text-white">
+    <header className="sticky top-0 flex h-24 items-center justify-between rounded-t-md bg-gray-900 p-2 text-white">
       {openOptions ? (
         <>
           <h1 className="text-sm font-medium sm:text-xl">Options</h1>
