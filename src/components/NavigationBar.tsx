@@ -47,12 +47,12 @@ export const NavigationBar = ({
               </h1>
               <p className="text-xs font-light text-gray-400">
                 <span className="capitalize">
-                  Race type: {clanInfo.clanRaceType}
+                  Race stage: {clanInfo.clanRaceType}
                 </span>
               </p>
               <p className="align-center my-1 flex text-xs font-light text-gray-400">
                 <span className="">
-                  Position: {clanInfo.clanRacePosition + 1}
+                  Position: {clanInfo.clanRacePosition + 1}º
                 </span>
                 <span className="ml-1">
                   <picture className="text-[0.6em] tracking-tighter">
