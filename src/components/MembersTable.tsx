@@ -1,20 +1,22 @@
+import { AnimatePresence } from "framer-motion";
 import { FC, useEffect, useState } from "react";
 import { defaultTopValues } from "src/options";
 import { IMemberWithRaceFame, IOptions, ITopValues } from "src/types";
 import { getTopValues, sorter } from "src/utils";
 import { MemberItem } from "./MemberItem";
-import { AnimatePresence } from "framer-motion";
 
 interface IMembersTableProps {
   members: IMemberWithRaceFame[];
   filter: string;
   options: IOptions;
+  warState: string | null;
 }
 
 export const MembersTable: FC<IMembersTableProps> = ({
   members,
   filter,
   options,
+  warState,
 }) => {
   const [topValues, setTopValues] = useState<ITopValues>(defaultTopValues);
 
@@ -53,6 +55,7 @@ export const MembersTable: FC<IMembersTableProps> = ({
               options={options}
               topValues={topValues}
               index={i}
+              warState={warState}
             />
           ))}
       </AnimatePresence>

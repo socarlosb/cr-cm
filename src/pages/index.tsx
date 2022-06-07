@@ -22,6 +22,7 @@ const Home = () => {
   const [clanInformation, setClanInformation] = useState<IClanInfo | null>(
     null
   );
+  const [warState, setWarState] = useState<string | null>(null);
 
   const { clanTag } = options;
 
@@ -54,6 +55,7 @@ const Home = () => {
         clanRaceType: currentriverrace.raceType,
         clanRaceFame: currentriverrace.currentRace.fame,
       };
+      setWarState(currentriverrace.raceType);
       setParsedMembers(parsedMembers);
       setClanInformation(clanInfo);
     });
@@ -94,11 +96,11 @@ const Home = () => {
           />
         </AnimatePresence>
       ) : (
-        <div className="overflow-auto">
+        <div className="h-full overflow-hidden overflow-y-auto">
           <>
             {isLoading && (
-              <div className="flex h-screen items-center justify-center text-center text-white">
-                <IconSpinner />
+              <div className="flex h-full items-center justify-center text-center text-white">
+                <IconSpinner width={80} height={80} />
               </div>
             )}
 
@@ -108,11 +110,12 @@ const Home = () => {
               </div>
             )}
 
-            {parsedMembers && (
+            {!isLoading && parsedMembers && (
               <MembersTable
                 members={parsedMembers}
                 filter={filter}
                 options={options}
+                warState={warState}
               />
             )}
           </>

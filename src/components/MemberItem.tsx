@@ -11,6 +11,7 @@ interface IMemberTableItemProps {
   options: IOptions;
   topValues: ITopValues;
   index: number;
+  warState: string | null;
 }
 
 export const MemberItem: FC<IMemberTableItemProps> = ({
@@ -18,9 +19,11 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
   options,
   topValues,
   index,
+  warState,
 }) => {
+  const isTraining = warState === "training";
   const isFailingCurrentFameTarget =
-    member.currentRaceFame !== "-" &&
+    !isTraining &&
     (member.currentRaceFame === 0 ||
       member.currentRaceFame < options.warWeekFame);
   const isFailingLastFameTarget =
@@ -186,12 +189,12 @@ export const MemberItem: FC<IMemberTableItemProps> = ({
             className={`text-xs tracking-tighter ${
               isFailingCurrentFameTarget
                 ? "text-orange-500"
-                : isTopCurrentRaceFame
+                : isTopCurrentRaceFame && !isTraining
                 ? "text-yellow-300"
                 : ""
             }`}
           >
-            {member?.currentRaceFame}
+            {!isTraining ? member?.currentRaceFame : "-"}
           </p>
           <p
             className={`text-xs tracking-tighter opacity-80 ${
