@@ -68,6 +68,7 @@ export interface IClanCurrentRace {
   fame: number;
   clanScore: number;
   participants: [IParticipants];
+  periodPoints: number;
 }
 
 export interface IOptions {

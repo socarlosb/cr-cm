@@ -51,10 +51,8 @@ export const NavigationBar = ({
                 </span>
               </p>
               <p className="align-center my-1 flex text-xs font-light text-gray-400">
-                <span className="">
-                  Position: {clanInfo.clanRacePosition + 1}º
-                </span>
-                <span className="ml-1">
+                <span className="">Position: {clanInfo.clanRacePosition}º</span>
+                <span className="ml-1 flex justify-center">
                   <picture className="text-[0.6em] tracking-tighter">
                     <Image
                       src="/cw-fame.webp"
@@ -63,7 +61,7 @@ export const NavigationBar = ({
                       alt="war fame medals"
                     />
                   </picture>
-                  {clanInfo.clanRaceFame}
+                  <span className="ml-1">{clanInfo.clanRaceFame}</span>
                 </span>
               </p>
             </div>

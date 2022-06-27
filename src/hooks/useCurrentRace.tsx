@@ -13,9 +13,10 @@ const fetchClanCurrentRace = async (clanTag: string) => {
   const currentRace: IClanCurrentRace = data?.clan;
   const currentRaceClans: IClanCurrentRace[] = data?.clans;
   const raceType = data.periodType;
-  const clanRacePosition = currentRaceClans
-    .sort((a, b) => b.fame - a.fame)
-    .findIndex((clan) => clan.tag === clanTag);
+  const clanRacePosition =
+    currentRaceClans
+      .sort((a, b) => b.periodPoints - a.periodPoints)
+      .findIndex((clan) => clan.tag === clanTag) + 1;
 
   return { currentRace, raceType, clanRacePosition };
 };
