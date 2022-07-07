@@ -54,6 +54,7 @@ const Home = () => {
         clanRacePosition: currentriverrace.clanRacePosition,
         clanRaceType: currentriverrace.raceType,
         clanRaceFame: currentriverrace.currentRace.fame,
+        clanRacePoints: currentriverrace.currentRace.periodPoints,
       };
       setWarState(currentriverrace.raceType);
       setParsedMembers(parsedMembers);

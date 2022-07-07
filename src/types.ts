@@ -85,6 +85,7 @@ export interface IClanInfo {
   clanRacePosition: number;
   clanRaceFame: number;
   clanRaceType: string;
+  clanRacePoints: number;
 }
 
 export interface ITopValues {

@@ -50,20 +50,24 @@ export const NavigationBar = ({
                   Race stage: {clanInfo.clanRaceType}
                 </span>
               </p>
-              <p className="align-center my-1 flex text-xs font-light text-gray-400">
-                <span className="">Position: {clanInfo.clanRacePosition}º</span>
-                <span className="ml-1 flex justify-center">
-                  <picture className="text-[0.6em] tracking-tighter">
-                    <Image
-                      src="/cw-fame.webp"
-                      width={14}
-                      height={14}
-                      alt="war fame medals"
-                    />
-                  </picture>
-                  <span className="ml-1">{clanInfo.clanRaceFame}</span>
-                </span>
-              </p>
+              {clanInfo.clanRaceType !== "WarDay" && (
+                <p className="align-center my-1 flex text-xs font-light text-gray-400">
+                  <span className="">
+                    Position: {clanInfo.clanRacePosition}º
+                  </span>
+                  <span className="ml-1 flex justify-center">
+                    <picture className="text-[0.6em] tracking-tighter">
+                      <Image
+                        src="/cw-fame.webp"
+                        width={14}
+                        height={14}
+                        alt="war fame medals"
+                      />
+                    </picture>
+                    <span className="ml-1">{clanInfo.clanRacePoints}</span>
+                  </span>
+                </p>
+              )}
             </div>
           ) : (
             <p></p>
