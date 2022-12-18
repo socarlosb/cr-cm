@@ -1,9 +1,14 @@
-export default async function handler(req, res) {
-  const { tag }: { tag: string } = req.query;
+import { NextApiRequest, NextApiResponse } from "next";
 
-  const url = `${
-    process.env.PROXY_ENDPOINT
-  }/clans/%23${tag.toUpperCase()}/riverracelog`;
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { tag } = req.query;
+
+  const url = `${process.env.PROXY_ENDPOINT}/clans/%23${tag
+    .toString()
+    .toUpperCase()}/riverracelog`;
 
   try {
     const response = await fetch(url, {
@@ -16,6 +21,6 @@ export default async function handler(req, res) {
     res.status(200).json(data);
   } catch (error) {
     console.error({ error });
-    res.status(300).json({ message: error?.message || "some error" });
+    res.status(300).json({ error });
   }
 }
