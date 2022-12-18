@@ -60,6 +60,8 @@ const Home = () => {
       setParsedMembers(parsedMembers);
       setClanInformation(clanInfo);
     });
+    console.info({ error });
+    console.info("----------------");
   }, [currentriverrace, members, options.clanTag, riverracelog]);
 
   useEffect(() => {
