@@ -16,6 +16,8 @@ export default async function handler(
         Authorization: `Bearer ${process.env.PROXY_TOKEN}`,
       },
     });
+    console.info({ response });
+    console.info("----------------");
     const data = await response.json();
 
     res.status(200).json(data);
