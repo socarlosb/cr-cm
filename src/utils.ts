@@ -19,7 +19,7 @@ export const verifyError = (errorMessage: string) => {
       break;
 
     default:
-      cleanErrorMessage = "Something went wrong!!!";
+      cleanErrorMessage = `Something went wrong: ${errorMessage}`;
       break;
   }
   return cleanErrorMessage;
