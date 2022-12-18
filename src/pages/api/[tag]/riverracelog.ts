@@ -16,7 +16,7 @@ export default async function handler(
         Authorization: `Bearer ${process.env.PROXY_TOKEN}`,
       },
     });
-    if (response.status !== 200) throw new Error(response.statusText);
+    if (response.status !== 200) throw response.statusText;
     const data = await response.json();
 
     res.status(200).json(data);
