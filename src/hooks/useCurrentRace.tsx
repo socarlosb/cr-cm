@@ -7,7 +7,7 @@ const fetchClanCurrentRace = async (clanTag: string) => {
   const url = `/api/${removeSymbolFromTag(clanTag)}/currentriverrace`;
   const response = await fetch(url);
   const data = await response.json();
-  console.info({ fetchClanCurrentRace: data });
+  console.info({ response, fetchClanCurrentRace: data });
   console.info("----------------");
   if (data.reason) throw Error(data.reason);
   const currentRace: IClanCurrentRace = data?.clan;

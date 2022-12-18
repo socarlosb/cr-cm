@@ -7,7 +7,7 @@ const fetchClanMembers = async (clanTag: string) => {
   const url = `/api/${removeSymbolFromTag(clanTag)}/members`;
   const response = await fetch(url);
   const data = await response.json();
-  console.info({ fetchClanMembers: data });
+  console.info({ response, fetchClanMembers: data });
   console.info("----------------");
   if (data?.reason) throw new Error(verifyError(data.reason));
   const members: IMember[] = data?.items;

@@ -7,7 +7,7 @@ const fetchClanRaceLog = async (clanTag: string) => {
   const url = `/api/${removeSymbolFromTag(clanTag)}/riverracelog`;
   const response = await fetch(url);
   const data = await response.json();
-  console.info({ fetchClanRaceLog: data });
+  console.info({ response, fetchClanRaceLog: data });
   console.info("----------------");
   if (data.reason) throw new Error(verifyError(data.reason));
   const raceLog: IRaceLog[] = data?.items;
