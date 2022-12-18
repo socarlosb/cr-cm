@@ -9,6 +9,8 @@ import type {
 } from "./types";
 
 export const verifyError = (errorMessage: string) => {
+  console.info({ errorMessage });
+  console.info("----------------");
   let cleanErrorMessage;
   switch (errorMessage) {
     case "notFound":
