@@ -1,4 +1,5 @@
 import Image from "next/image";
+import useApiStatus from "src/hooks/useApiStatus";
 import { IconClose, IconOptions } from "src/icons";
 import { IClanInfo } from "src/types";
 
@@ -9,6 +10,23 @@ interface INavigationBarProps {
   openOptions: boolean;
   setOpenOptions: (value: boolean) => void;
 }
+
+const ApiStatus = () => {
+  const { data: status, isLoading } = useApiStatus();
+
+  return (
+    <div
+      title={`API is {status}`}
+      className={`h-2 w-2 animate-pulse rounded-lg ${
+        isLoading
+          ? "bg-gray-400"
+          : status === "online"
+          ? "bg-green-400"
+          : "bg-red-400"
+      }`}
+    ></div>
+  );
+};
 
 export const NavigationBar = ({
   clanInfo,
@@ -72,7 +90,8 @@ export const NavigationBar = ({
           ) : (
             <p></p>
           )}
-          <div className="flex items-center justify-end">
+          <div className="flex items-center justify-end gap-2">
+            <ApiStatus />
             <select
               className="rounded-l-md bg-gray-700 py-1 text-xs transition duration-150 ease-in-out focus:outline-none"
               name="orderBy"
